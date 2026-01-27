@@ -97,13 +97,13 @@ int main(void)
   while (1)
   {
     /* USER CODE END WHILE */
-    HID_Keyboard_Data keyboard_data = {0};
-    keyboard_data.modifier = 0;
-    keyboard_data.keycode[0] = 0x04;
+    //HID_Keyboard_Data keyboard_data = {0};
+    //keyboard_data.modifier = 0;
+    //keyboard_data.keycode[0] = 0x04;
     //HID_Keyboard_Send(&keyboard_data);
-    HAL_Delay(15);
-    keyboard_data.keycode[0] = 0x00;
-    HID_Keyboard_Send(&keyboard_data);
+    //HAL_Delay(15);
+    //keyboard_data.keycode[0] = 0x00;
+    //HID_Keyboard_Send(&keyboard_data);
     HAL_Delay(5000);
     /* USER CODE BEGIN 3 */
   }
