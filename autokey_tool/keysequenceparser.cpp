@@ -30,6 +30,12 @@ QByteArray KeySequenceParser::parseSequence(const QString &sequence)
     return result;
 }
 
+/**
+ * @brief Validates a key sequence string.
+ * 
+ * @param sequence The key sequence string to validate.
+ * @return true if the sequence is valid, false otherwise.
+ */
 bool KeySequenceParser::validateSequence(const QString &sequence)
 {
     if (sequence.isEmpty()) {
@@ -67,6 +73,7 @@ bool KeySequenceParser::validateSequence(const QString &sequence)
                 if (!m_keyMap.contains(key)) {
                     return false;
                 }
+                trimmed = key; // Update trimmed to be the key only, matching parseActions logic
                 continue;
             }
         }
@@ -92,57 +99,59 @@ bool KeySequenceParser::validateSequence(const QString &sequence)
     return true;
 }
 
+/**
+ * @brief Parses a key sequence string into a vector of KeyAction structs.
+ * 
+ * @param sequence The key sequence string to parse.
+ * @return QVector<KeyAction> The vector of parsed KeyAction structs.
+ */
 QVector<KeyAction> KeySequenceParser::parseActions(const QString &sequence)
 {
     QVector<KeyAction> actions;
     QStringList parts = sequence.split(';', Qt::SkipEmptyParts);
     
     for (const QString &part : parts) {
+        KeyAction action; // Initialize action for each part
         QString trimmed = part.trimmed();
         if (trimmed.isEmpty()) {
             continue;
         }
         
         if (trimmed.contains("ms") && trimmed.endsWith("ms")) {
-            KeyAction action;
             action.type = KeyAction::Delay;
             action.delay = trimmed.left(trimmed.length() - 2).toInt();
-            actions.append(action);
             continue;
+        }else{
+            action.type = KeyAction::KeyData;   //if not delay, set to KeyData first
         }
         
         if (trimmed.contains('(') && trimmed.endsWith(')')) {
             int openIndex = trimmed.indexOf('(');
             int closeIndex = trimmed.lastIndexOf(')');
             if (openIndex >= 0 && closeIndex > openIndex) {
-                KeyAction action;
-                action.type = KeyAction::KeyRepeat;
-                action.key = trimmed.left(openIndex);
                 action.count = trimmed.mid(openIndex + 1, closeIndex - openIndex - 1).toInt();
-                actions.append(action);
-                continue;
+                trimmed = trimmed.left(openIndex); // Update trimmed to be the key only
             }
+        }else {
+            action.count = 1;
         }
         
         if (trimmed.contains('+')) {
-            KeyAction action;
-            action.type = KeyAction::KeyCombo;
             QStringList comboKeys = trimmed.split('+', Qt::SkipEmptyParts);
             for (const QString &key : comboKeys) {
-                action.comboKeys.append(key.trimmed());
+                action.data.append(key.trimmed());
             }
-            actions.append(action);
-            continue;
+        }else{
+            action.data.append(trimmed);    
         }
-        
-        KeyAction action;
-        action.type = KeyAction::KeyPress;
-        action.key = trimmed;
         actions.append(action);
+
+        KeyAction pressAction;
+        action.type = KeyAction::KeyPress;
+        actions.append(pressAction);
         
         KeyAction releaseAction;
         releaseAction.type = KeyAction::KeyRelease;
-        releaseAction.key = trimmed;
         actions.append(releaseAction);
     }
     
@@ -163,9 +172,9 @@ QByteArray KeySequenceParser::actionToBytes(const KeyAction &action)
         stream << getKeyCode(action.key);
         break;
         
-    case KeyAction::KeyCombo:
-        stream << static_cast<quint8>(action.comboKeys.size());
-        for (const QString &key : action.comboKeys) {
+    case KeyAction::KeyData:
+        stream << static_cast<quint8>(action.data.size());
+        for (const QString &key : action.data) {
             stream << getKeyCode(key);
         }
         break;

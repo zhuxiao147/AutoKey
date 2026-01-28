@@ -8,18 +8,15 @@
 
 struct KeyAction {
     enum Type {
+        KeyData,
         KeyPress,
         KeyRelease,
-        KeyCombo,
-        KeyRepeat,
         Delay
     };
-    
     Type type;
-    QString key;
     int count;  // for repeat actions
     int delay;  // for delay actions in milliseconds
-    QVector<QString> comboKeys;  // for combo actions
+    QVector<QString> data;  // for data actions
 };
 
 class KeySequenceParser

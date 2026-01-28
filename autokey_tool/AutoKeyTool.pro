@@ -1,6 +1,7 @@
 QT += core gui widgets
 
 CONFIG += c++14
+CONFIG += static
 
 TARGET = AutoKeyTool
 TEMPLATE = app
@@ -14,7 +15,6 @@ HEADERS += mainwindow.h \
     hiddevice.h \
     keysequenceparser.h
 
-#LIBS += -lhid -lsetupapi
 
 FORMS += mainwindow.ui
 
