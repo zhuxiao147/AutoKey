@@ -101,7 +101,7 @@ void MainWindow::updateUI()
 {
     bool connected = m_hidDevice->isConnected();
     ui->connectButton->setText(connected ? "断开设备" : "连接设备");
-    ui->sendButton->setEnabled(connected);
+    ui->sendButton->setEnabled(TRUE);
     ui->statusLabel->setText(connected ? "已连接" : "未连接");
 }
 
