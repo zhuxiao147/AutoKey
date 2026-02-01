@@ -118,7 +118,7 @@ static uint8_t  USBD_HID_EP0_RxReady(USBD_HandleTypeDef  *pdev);
   * @{
   */
 
-uint8_t testbuf[HID_CUSTOM_EPIN_SIZE] = {0};
+uint8_t testbuf[HID_CUSTOM_EPIN_SIZE*10] = {0};
 
 
 USBD_ClassTypeDef  USBD_HID =
@@ -541,22 +541,21 @@ __ALIGN_BEGIN static uint8_t HID_CUSTOM_ReportDesc[HID_CUSTOM_REPORT_DESC_SIZE] 
     0x09, 0x01,            // Usage (Vendor Usage 1)
     0xA1, 0x01,            // Collection (Application)
 
-    // Report ID 1 - 读取设备状态
+    // Report ID 1 
     0x85, 0x01,            //   Report ID (1)
+
     0x09, 0x01,            //   Usage
     0x15, 0x00,            //   Logical Min (0)
     0x26, 0xFF, 0x00,      //   Logical Max (255)
     0x75, 0x08,            //   Report Size (8 bits)
-    0x95, 0x04,            //   Report Count (4 bytes)
+    0x95, 0x40,            //   Report Count (4 bytes)
     0x81, 0x02,            //   Input (Data,Var,Abs)
 
-    // Report ID 2 - 设置缓存状态
-    0x85, 0x02,            //   Report ID (2)
     0x09, 0x02,            //   Usage
     0x15, 0x00,
     0x26, 0xFF, 0x00,
     0x75, 0x08,            //   Report Size (8 bits)
-    0x95, 0x04,            //   4 bytes
+    0x95, 0x40,            //   4 bytes
     0x91, 0x02,            //   Output (Data,Var,Abs)
 
     0xC0                   // End Collection
@@ -939,6 +938,8 @@ static uint8_t  USBD_HID_EP0_RxReady(USBD_HandleTypeDef  *pdev)
   if (hhid->IsReportAvailable == 1U)
   {
     hhid->IsReportAvailable = 0U;
+
+    
   }
 
   return USBD_OK;

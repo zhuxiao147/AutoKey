@@ -10,6 +10,9 @@
 #pragma comment(lib, "hid.lib")
 #endif
 
+#define HID_REPORT_ID 1U
+#define HID_REPORT_SIZE 64
+
 HIDDevice::HIDDevice(QObject *parent)
     : QObject(parent)
     , m_deviceHandle(nullptr)
@@ -76,10 +79,13 @@ bool HIDDevice::connect(uint16_t vendorId, uint16_t productId)
                         
                         if (HidD_GetAttributes(deviceHandle, &attributes)) {
                             if (attributes.VendorID == vendorId && attributes.ProductID == productId) {
-                                m_deviceHandle = deviceHandle;
-                                deviceFound = true;
-                                HidD_FreePreparsedData(preparsedData);
-                                break;
+                                if((capabilities.UsagePage & HID_USAGE_PAGE_VENDOR_DEFINED_BEGIN) == HID_USAGE_PAGE_VENDOR_DEFINED_BEGIN)
+                                {
+                                    m_deviceHandle = deviceHandle;
+                                    deviceFound = true;
+                                    HidD_FreePreparsedData(preparsedData);
+                                    break;
+                                }
                             }
                         }
                     }
@@ -188,25 +194,35 @@ QByteArray HIDDevice::getData()
     return QByteArray();
 }
 
-bool HIDDevice::sendReport(const QByteArray &data)
+bool HIDDevice::sendReport(QByteArray data)
 {
     if (!m_deviceHandle) {
         return false;
     }
-    
-#ifdef _WIN32
-    QByteArray reportData = data;
-    if (reportData.size() < 64) {
-        reportData.resize(64);
+
+    while (data.size() > 0)
+    {
+        // 发送数据（第一个字节通常是 Report ID，0 表示无 ID）
+        unsigned char outReport[HID_REPORT_SIZE + 1] = {0};
+        outReport[0] = HID_REPORT_ID; // Report ID
+
+        int bytesToSend = min(data.size(), HID_REPORT_SIZE);
+        memcpy(outReport + 1, data.constData(), bytesToSend);
+        data.remove(0, bytesToSend);
+
+    #ifdef _WIN32
+        if (!HidD_SetOutputReport(m_deviceHandle, outReport, HID_REPORT_SIZE)) {
+            qDebug("Failed to send output report.\n");
+            return false;
+        } else {
+            qDebug("Output report sent.\n");
+            return true;
+        }
+    #endif
     }
     
-    DWORD bytesWritten = 0;
-    if (WriteFile(m_deviceHandle, reportData.constData(), reportData.size(), &bytesWritten, nullptr)) {
-        return bytesWritten == (DWORD)reportData.size();
-    }
-#endif
+    return true;
     
-    return false;
 }
 
 QByteArray HIDDevice::calculateCRC32(const QByteArray &data)

@@ -152,9 +152,9 @@
         <Bp>
           <Number>0</Number>
           <Type>0</Type>
-          <LineNumber>926</LineNumber>
+          <LineNumber>940</LineNumber>
           <EnabledFlag>1</EnabledFlag>
-          <Address>134227274</Address>
+          <Address>134227344</Address>
           <ByteObject>0</ByteObject>
           <HtxType>0</HtxType>
           <ManyObjects>0</ManyObjects>
@@ -163,23 +163,7 @@
           <BreakIfRCount>1</BreakIfRCount>
           <Filename>../Middlewares/ST/STM32_USB_Device_Library/Class/HID/Src/usbd_hid.c</Filename>
           <ExecCommand></ExecCommand>
-          <Expression>\\autokey\../Middlewares/ST/STM32_USB_Device_Library/Class/HID/Src/usbd_hid.c\926</Expression>
-        </Bp>
-        <Bp>
-          <Number>1</Number>
-          <Type>0</Type>
-          <LineNumber>672</LineNumber>
-          <EnabledFlag>1</EnabledFlag>
-          <Address>134227606</Address>
-          <ByteObject>0</ByteObject>
-          <HtxType>0</HtxType>
-          <ManyObjects>0</ManyObjects>
-          <SizeOfObject>0</SizeOfObject>
-          <BreakByAccess>0</BreakByAccess>
-          <BreakIfRCount>1</BreakIfRCount>
-          <Filename>../Middlewares/ST/STM32_USB_Device_Library/Class/HID/Src/usbd_hid.c</Filename>
-          <ExecCommand></ExecCommand>
-          <Expression>\\autokey\../Middlewares/ST/STM32_USB_Device_Library/Class/HID/Src/usbd_hid.c\672</Expression>
+          <Expression>\\autokey\../Middlewares/ST/STM32_USB_Device_Library/Class/HID/Src/usbd_hid.c\940</Expression>
         </Bp>
       </Breakpoint>
       <MemoryWindow1>
@@ -194,7 +178,7 @@
         <Mm>
           <WinNumber>2</WinNumber>
           <SubType>0</SubType>
-          <ItemText>0x20000730</ItemText>
+          <ItemText>0x2000072C</ItemText>
           <AccSizeX>0</AccSizeX>
         </Mm>
       </MemoryWindow2>

@@ -28,7 +28,7 @@ signals:
     void deviceStatusChanged(bool connected);
 
 private:
-    bool sendReport(const QByteArray &data);
+    bool sendReport( QByteArray data);
     QByteArray calculateCRC32(const QByteArray &data);
     
 #ifdef _WIN32

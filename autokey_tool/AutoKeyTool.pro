@@ -6,6 +6,9 @@ CONFIG += static
 TARGET = AutoKeyTool
 TEMPLATE = app
 
+INCLUDEPATH += $$PWD\ThirdParty\hidapi-win\include
+LIBS += $$PWD\ThirdParty\hidapi-win\x64\hidapi.lib
+
 SOURCES += main.cpp \
     mainwindow.cpp \
     hiddevice.cpp \

@@ -35,7 +35,7 @@ void MainWindow::onConnectDevice()
     if (m_hidDevice->isConnected()) {
         m_hidDevice->disconnect();
     } else {
-        if (m_hidDevice->connect(0x1234, 0x5678)) {
+        if (m_hidDevice->connect(0x0483, 0x572B)) {
             showStatusMessage("设备连接成功");
         } else {
             QMessageBox::warning(this, "连接失败", "无法连接到指定的HID设备");
@@ -101,7 +101,7 @@ void MainWindow::updateUI()
 {
     bool connected = m_hidDevice->isConnected();
     ui->connectButton->setText(connected ? "断开设备" : "连接设备");
-    ui->sendButton->setEnabled(TRUE);
+    ui->sendButton->setEnabled(connected);
     ui->statusLabel->setText(connected ? "已连接" : "未连接");
 }
 
