@@ -118,7 +118,6 @@ static uint8_t  USBD_HID_EP0_RxReady(USBD_HandleTypeDef  *pdev);
   * @{
   */
 
-uint8_t testbuf[HID_CUSTOM_EPIN_SIZE*10] = {0};
 
 
 USBD_ClassTypeDef  USBD_HID =

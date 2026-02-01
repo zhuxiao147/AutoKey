@@ -200,14 +200,28 @@ bool HIDDevice::sendReport(QByteArray data)
         return false;
     }
 
-    while (data.size() > 0)
+    for (int index = 1; data.size() > 0 ; index++)
     {
+        int bytesToSend = min(data.size(), HID_REPORT_SIZE - 2);
+        if(index > 256)
+        {
+            return false;
+        }
+
+        /*
+         * 发送数据的格式：
+         * 第一个字节：Report ID
+         * 第二个字节：数据序号
+         * 第三个字节：数据长度
+         * 从第四个字节开始：数据内容
+         */
         // 发送数据（第一个字节通常是 Report ID，0 表示无 ID）
         unsigned char outReport[HID_REPORT_SIZE + 1] = {0};
         outReport[0] = HID_REPORT_ID; // Report ID
+        outReport[1] = index;  
+        outReport[2] = bytesToSend;  
 
-        int bytesToSend = min(data.size(), HID_REPORT_SIZE);
-        memcpy(outReport + 1, data.constData(), bytesToSend);
+        memcpy(outReport + 3, data.constData(), bytesToSend);
         data.remove(0, bytesToSend);
 
     #ifdef _WIN32
