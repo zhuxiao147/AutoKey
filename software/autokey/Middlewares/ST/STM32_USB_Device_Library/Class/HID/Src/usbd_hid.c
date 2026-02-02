@@ -47,6 +47,8 @@ EndBSPDependencies */
 #include "usbd_hid.h"
 #include "usbd_ctlreq.h"
 
+#include "sysdata.h"
+
 /** @addtogroup STM32_USB_DEVICE_LIBRARY
   * @{
   */
@@ -665,7 +667,8 @@ static uint8_t  USBD_HID_Setup(USBD_HandleTypeDef *pdev,
           if (req->wIndex == 2)  /* Custom interface */
           {
             hhid->IsReportAvailable = 1U;
-            USBD_CtlPrepareRx(pdev, hhid->Report_buf, req->wLength);
+            USBD_CtlPrepareRx(pdev, hhid->Report_inbuf, req->wLength);
+            hhid->ReportSize = req->wLength;
           }
           break;
         
@@ -918,7 +921,7 @@ static uint8_t  USBD_HID_DataOut(USBD_HandleTypeDef *pdev,
 {
   USBD_HID_HandleTypeDef     *hhid = (USBD_HID_HandleTypeDef *)pdev->pClassData;
 
-  USBD_LL_PrepareReceive(pdev, HID_CUSTOM_EPOUT_ADDR, hhid->Report_buf,
+  USBD_LL_PrepareReceive(pdev, HID_CUSTOM_EPOUT_ADDR, hhid->Report_inbuf,
                          USBD_CUSTOMHID_OUTREPORT_BUF_SIZE);
 
   return USBD_OK;
@@ -938,7 +941,11 @@ static uint8_t  USBD_HID_EP0_RxReady(USBD_HandleTypeDef  *pdev)
   {
     hhid->IsReportAvailable = 0U;
 
-    
+    if(SYS_Receive_Data(&global_sysdata, hhid->Report_inbuf, hhid->ReportSize)){
+      //get report ok
+    }else{
+      //get report retry
+    }
   }
 
   return USBD_OK;

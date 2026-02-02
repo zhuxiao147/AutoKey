@@ -148,11 +148,12 @@ bool HIDDevice::sendData(const QByteArray &data)
     QDataStream stream(&packet, QIODevice::WriteOnly);
     stream.setByteOrder(QDataStream::LittleEndian);
     
-    stream << static_cast<quint32>(data.size());
-    stream.writeRawData(data.constData(), data.size());
-    
+    stream << static_cast<quint32>(data.size());  //length
+
     QByteArray crc32 = calculateCRC32(data);
-    stream.writeRawData(crc32.constData(), 4);
+    stream.writeRawData(crc32.constData(), 4); //crc32
+
+    stream.writeRawData(data.constData(), data.size()); //data
     
     return sendReport(packet);
 }
