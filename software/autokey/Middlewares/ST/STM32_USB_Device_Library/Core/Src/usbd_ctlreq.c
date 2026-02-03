@@ -62,6 +62,8 @@
 /** @defgroup USBD_REQ_Private_Variables
   * @{
   */
+volatile uint32_t testbrk = 1;
+
 
 /**
   * @}
@@ -179,6 +181,10 @@ USBD_StatusTypeDef  USBD_StdItfReq(USBD_HandleTypeDef *pdev,
                                    USBD_SetupReqTypedef  *req)
 {
   USBD_StatusTypeDef ret = USBD_OK;
+
+  if(pdev == NULL || req == NULL){
+    return USBD_FAIL;
+  }
 
   switch (req->bmRequest & USB_REQ_TYPE_MASK)
   {

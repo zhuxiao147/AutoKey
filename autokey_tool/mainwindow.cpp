@@ -1,9 +1,16 @@
-#include "mainwindow.h"
+﻿#include "mainwindow.h"
 #include "ui_mainwindow.h"
 #include "hiddevice.h"
 #include "keysequenceparser.h"
 #include <QMessageBox>
 #include <QTimer>
+#include <QLocale>
+#include <QTextCodec>
+
+
+#if defined(_MSC_VER) && (_MSC_VER >= 1600)    
+# pragma execution_character_set("utf-8")    
+#endif
 
 MainWindow::MainWindow(QWidget *parent)
     : QMainWindow(parent)
@@ -11,6 +18,9 @@ MainWindow::MainWindow(QWidget *parent)
     , m_hidDevice(std::make_unique<HIDDevice>())
     , m_sequenceParser(std::make_unique<KeySequenceParser>())
 {
+
+    QTextCodec::setCodecForLocale(QTextCodec::codecForName("UTF-8"));
+    
     ui->setupUi(this);
     
     setWindowTitle("自动按键设置工具");
@@ -46,20 +56,26 @@ void MainWindow::onConnectDevice()
 
 void MainWindow::onSendSequence()
 {
+
+    ui->sendButton->setEnabled(false);
+
     if (!m_hidDevice->isConnected()) {
         QMessageBox::warning(this, "错误", "请先连接HID设备");
+        ui->sendButton->setEnabled(true);
         return;
     }
     
     QString sequence = ui->sequenceEdit->toPlainText().trimmed();
     if (sequence.isEmpty()) {
         QMessageBox::warning(this, "错误", "请输入按键序列");
+        ui->sendButton->setEnabled(true);
         return;
     }
     
     QByteArray data = m_sequenceParser->parseSequence(sequence);
     if (data.isEmpty()) {
         QMessageBox::warning(this, "错误", "按键序列格式错误");
+        ui->sendButton->setEnabled(true);
         return;
     }
     
@@ -69,6 +85,10 @@ void MainWindow::onSendSequence()
         QMessageBox::warning(this, "错误", "发送按键序列失败");
         showStatusMessage("发送按键序列失败");
     }
+
+    ui->sendButton->setEnabled(true);
+
+
 }
 
 void MainWindow::onCheckSequence()

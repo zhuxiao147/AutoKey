@@ -667,7 +667,10 @@ static uint8_t  USBD_HID_Setup(USBD_HandleTypeDef *pdev,
           if (req->wIndex == 2)  /* Custom interface */
           {
             hhid->IsReportAvailable = 1U;
-            USBD_CtlPrepareRx(pdev, hhid->Report_inbuf, req->wLength);
+            if(pdev == NULL || req == NULL || hhid == NULL || hhid->Report_outbuf == NULL){
+              return USBD_FAIL;
+            }
+            USBD_CtlPrepareRx(pdev, hhid->Report_outbuf, req->wLength);
             hhid->ReportSize = req->wLength;
           }
           break;
@@ -921,7 +924,7 @@ static uint8_t  USBD_HID_DataOut(USBD_HandleTypeDef *pdev,
 {
   USBD_HID_HandleTypeDef     *hhid = (USBD_HID_HandleTypeDef *)pdev->pClassData;
 
-  USBD_LL_PrepareReceive(pdev, HID_CUSTOM_EPOUT_ADDR, hhid->Report_inbuf,
+  USBD_LL_PrepareReceive(pdev, HID_CUSTOM_EPOUT_ADDR, hhid->Report_outbuf,
                          USBD_CUSTOMHID_OUTREPORT_BUF_SIZE);
 
   return USBD_OK;

@@ -1,4 +1,4 @@
-#include "keysequenceparser.h"
+﻿#include "keysequenceparser.h"
 #include <QDebug>
 #include <QRegularExpression>
 #include <QDataStream>
@@ -14,7 +14,7 @@ QByteArray KeySequenceParser::parseSequence(const QString &sequence)
     if (!validateSequence(sequence)) {
         return QByteArray();
     }
-    
+
     QVector<KeyAction> actions = parseActions(sequence);
     QByteArray data;
     QDataStream dataStream(&data, QIODevice::WriteOnly);
@@ -26,21 +26,12 @@ QByteArray KeySequenceParser::parseSequence(const QString &sequence)
         dataStream.writeRawData(actionData.constData(), actionData.size());
     }
     
-    // 构建完整协议：length(4字节) + data + crc32(4字节)
     QByteArray result;
     QDataStream resultStream(&result, QIODevice::WriteOnly);
     resultStream.setByteOrder(QDataStream::LittleEndian);
     
-    // 写入数据长度（4字节）
-    quint32 dataLength = data.size();
-    resultStream << dataLength;
-    
     // 写入数据
     resultStream.writeRawData(data.constData(), data.size());
-    
-    // 写入CRC32校验值（4字节）
-    quint32 crc32 = calculateCRC32(data);
-    resultStream << crc32;
     
     return result;
 }

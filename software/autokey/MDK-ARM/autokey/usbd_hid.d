@@ -39,3 +39,5 @@ autokey\usbd_hid.o: ../Core/Inc/keyboard.h
 autokey\usbd_hid.o: ../Middlewares/ST/STM32_USB_Device_Library/Core/Inc/usbd_core.h
 autokey\usbd_hid.o: ../Middlewares/ST/STM32_USB_Device_Library/Core/Inc/usbd_ioreq.h
 autokey\usbd_hid.o: ../Middlewares/ST/STM32_USB_Device_Library/Core/Inc/usbd_ctlreq.h
+autokey\usbd_hid.o: ../Core/Inc/sysdata.h
+autokey\usbd_hid.o: D:\keil4\ARM\ARMCC\Bin\..\include\stdbool.h

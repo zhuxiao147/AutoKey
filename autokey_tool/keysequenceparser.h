@@ -1,4 +1,4 @@
-#ifndef KEYSEQUENCEPARSER_H
+﻿#ifndef KEYSEQUENCEPARSER_H
 #define KEYSEQUENCEPARSER_H
 
 #include <QByteArray>

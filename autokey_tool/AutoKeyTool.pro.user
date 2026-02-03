@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE QtCreatorProject>
-<!-- Written by QtCreator 4.11.1, 2026-02-01T22:14:30. -->
+<!-- Written by QtCreator 4.11.1, 2026-02-03T21:51:59. -->
 <qtcreator>
  <data>
   <variable>EnvironmentId</variable>
@@ -287,8 +287,9 @@
     </valuelist>
     <value type="int" key="PE.EnvironmentAspect.Base">2</value>
     <valuelist type="QVariantList" key="PE.EnvironmentAspect.Changes"/>
-    <value type="QString" key="ProjectExplorer.ProjectConfiguration.Id">Qt4ProjectManager.Qt4RunConfiguration:D:/GITHUB/GIT/AutoKey/autokey_tool/AutoKeyTool.pro</value>
-    <value type="QString" key="ProjectExplorer.RunConfiguration.BuildKey">D:/GITHUB/GIT/AutoKey/autokey_tool/AutoKeyTool.pro</value>
+    <value type="QString" key="ProjectExplorer.ProjectConfiguration.DisplayName">AutoKeyTool2</value>
+    <value type="QString" key="ProjectExplorer.ProjectConfiguration.Id">Qt4ProjectManager.Qt4RunConfiguration:D:/GITHUB/GIT/autokey_local/autokey_tool/AutoKeyTool.pro</value>
+    <value type="QString" key="ProjectExplorer.RunConfiguration.BuildKey">D:/GITHUB/GIT/autokey_local/autokey_tool/AutoKeyTool.pro</value>
     <value type="QString" key="RunConfiguration.Arguments"></value>
     <value type="bool" key="RunConfiguration.Arguments.multi">false</value>
     <value type="QString" key="RunConfiguration.OverrideDebuggerStartup"></value>
