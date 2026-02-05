@@ -44,10 +44,13 @@
 EndBSPDependencies */
 
 /* Includes ------------------------------------------------------------------*/
+#include <stdio.h>
+
 #include "usbd_hid.h"
 #include "usbd_ctlreq.h"
 
 #include "sysdata.h"
+
 
 /** @addtogroup STM32_USB_DEVICE_LIBRARY
   * @{
@@ -120,7 +123,8 @@ static uint8_t  USBD_HID_EP0_RxReady(USBD_HandleTypeDef  *pdev);
   * @{
   */
 
-
+//USBD_HandleTypeDef* global_handle_dev_test;  ???
+//USBD_HID_HandleTypeDef* global_hid_handle_dev_test;
 
 USBD_ClassTypeDef  USBD_HID =
 {
@@ -549,14 +553,14 @@ __ALIGN_BEGIN static uint8_t HID_CUSTOM_ReportDesc[HID_CUSTOM_REPORT_DESC_SIZE] 
     0x15, 0x00,            //   Logical Min (0)
     0x26, 0xFF, 0x00,      //   Logical Max (255)
     0x75, 0x08,            //   Report Size (8 bits)
-    0x95, 0x40,            //   Report Count (4 bytes)
+    0x95, USBD_CUSTOMHID_INREPORT_SIZE,            //   Report Count (4 bytes)
     0x81, 0x02,            //   Input (Data,Var,Abs)
 
     0x09, 0x02,            //   Usage
     0x15, 0x00,
     0x26, 0xFF, 0x00,
     0x75, 0x08,            //   Report Size (8 bits)
-    0x95, 0x40,            //   4 bytes
+    0x95, USBD_CUSTOMHID_OUTREPORT_SIZE,            //   Report Count (4 bytes)
     0x91, 0x02,            //   Output (Data,Var,Abs)
 
     0xC0                   // End Collection
@@ -642,6 +646,13 @@ static uint8_t  USBD_HID_Setup(USBD_HandleTypeDef *pdev,
   uint16_t status_info = 0U;
   USBD_StatusTypeDef ret = USBD_OK;
 
+  if (hhid == NULL || pdev == NULL || req == NULL)
+  {
+    USBD_CtlError(pdev, req);
+    return USBD_FAIL;
+  }
+  
+
   switch (req->bmRequest & USB_REQ_TYPE_MASK)
   {
     case USB_REQ_TYPE_CLASS :
@@ -667,9 +678,6 @@ static uint8_t  USBD_HID_Setup(USBD_HandleTypeDef *pdev,
           if (req->wIndex == 2)  /* Custom interface */
           {
             hhid->IsReportAvailable = 1U;
-            if(pdev == NULL || req == NULL || hhid == NULL || hhid->Report_outbuf == NULL){
-              return USBD_FAIL;
-            }
             USBD_CtlPrepareRx(pdev, hhid->Report_outbuf, req->wLength);
             hhid->ReportSize = req->wLength;
           }
@@ -794,6 +802,10 @@ uint8_t USBD_HID_SendReport(USBD_HandleTypeDef  *pdev,
                             uint16_t len)
 {
   USBD_HID_HandleTypeDef     *hhid = (USBD_HID_HandleTypeDef *)pdev->pClassData;
+  if (hhid == NULL || pdev == NULL || report == NULL)
+  {
+    return USBD_FAIL;
+  }
 
   if (pdev->dev_state == USBD_STATE_CONFIGURED)
   {
@@ -814,6 +826,10 @@ uint8_t USBD_HID_SendKeyboardReport(USBD_HandleTypeDef  *pdev,
                                    uint16_t len)
 {
   USBD_HID_HandleTypeDef     *hhid = (USBD_HID_HandleTypeDef *)pdev->pClassData;
+  if (hhid == NULL || pdev == NULL || report == NULL)
+  {
+    return USBD_FAIL;
+  }
 
   if (pdev->dev_state == USBD_STATE_CONFIGURED)
   {
@@ -923,9 +939,13 @@ static uint8_t  USBD_HID_DataOut(USBD_HandleTypeDef *pdev,
                                 uint8_t epnum)
 {
   USBD_HID_HandleTypeDef     *hhid = (USBD_HID_HandleTypeDef *)pdev->pClassData;
+  if (hhid == NULL || pdev == NULL)
+  {
+    return USBD_FAIL;
+  }
 
   USBD_LL_PrepareReceive(pdev, HID_CUSTOM_EPOUT_ADDR, hhid->Report_outbuf,
-                         USBD_CUSTOMHID_OUTREPORT_BUF_SIZE);
+                         USBD_CUSTOMHID_OUTREPORT_SIZE);
 
   return USBD_OK;
 }
@@ -939,6 +959,11 @@ static uint8_t  USBD_HID_DataOut(USBD_HandleTypeDef *pdev,
 static uint8_t  USBD_HID_EP0_RxReady(USBD_HandleTypeDef  *pdev)
 {
   USBD_HID_HandleTypeDef     *hhid = (USBD_HID_HandleTypeDef *)pdev->pClassData;
+  if (hhid == NULL || pdev == NULL)
+  {
+    return USBD_FAIL;
+  }
+  
 
   if (hhid->IsReportAvailable == 1U)
   {

@@ -51,7 +51,8 @@ extern "C" {
 #define HID_CUSTOM_EPOUT_ADDR         0x03U
 #define HID_CUSTOM_EPIN_SIZE          0x40U
 #define HID_CUSTOM_EPOUT_SIZE         0x40U
-#define USBD_CUSTOMHID_OUTREPORT_BUF_SIZE     0x40U
+#define USBD_CUSTOMHID_INREPORT_SIZE      0x40U
+#define USBD_CUSTOMHID_OUTREPORT_SIZE     0x40U
 
 #define USB_HID_CONFIG_DESC_SIZ       91U  /* Increased for 2 interfaces */
 #define USB_HID_DESC_SIZ              9U
@@ -97,8 +98,8 @@ HID_StateTypeDef;
 
 typedef struct
 {
-  uint8_t              Report_inbuf[USBD_CUSTOMHID_OUTREPORT_BUF_SIZE + 1];
-  uint8_t              Report_outbuf[USBD_CUSTOMHID_OUTREPORT_BUF_SIZE + 1];
+  uint8_t              Report_inbuf[USBD_CUSTOMHID_INREPORT_SIZE + 1];
+  uint8_t              Report_outbuf[USBD_CUSTOMHID_OUTREPORT_SIZE + 1];
   uint32_t             Protocol;
   uint32_t             IdleState;
   uint32_t             AltSetting;

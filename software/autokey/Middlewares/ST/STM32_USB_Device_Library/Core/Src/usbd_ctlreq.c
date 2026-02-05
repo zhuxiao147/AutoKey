@@ -20,7 +20,7 @@
 /* Includes ------------------------------------------------------------------*/
 #include "usbd_ctlreq.h"
 #include "usbd_ioreq.h"
-
+#include <stdio.h>
 
 /** @addtogroup STM32_USBD_STATE_DEVICE_LIBRARY
   * @{
@@ -181,11 +181,6 @@ USBD_StatusTypeDef  USBD_StdItfReq(USBD_HandleTypeDef *pdev,
                                    USBD_SetupReqTypedef  *req)
 {
   USBD_StatusTypeDef ret = USBD_OK;
-
-  if(pdev == NULL || req == NULL){
-    return USBD_FAIL;
-  }
-
   switch (req->bmRequest & USB_REQ_TYPE_MASK)
   {
     case USB_REQ_TYPE_CLASS:

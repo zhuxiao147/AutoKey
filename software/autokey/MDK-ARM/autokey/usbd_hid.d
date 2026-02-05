@@ -1,9 +1,9 @@
 autokey\usbd_hid.o: ../Middlewares/ST/STM32_USB_Device_Library/Class/HID/Src/usbd_hid.c
+autokey\usbd_hid.o: D:\keil4\ARM\ARMCC\Bin\..\include\stdio.h
 autokey\usbd_hid.o: ../Middlewares/ST/STM32_USB_Device_Library/Class/HID/Inc/usbd_hid.h
 autokey\usbd_hid.o: ../Middlewares/ST/STM32_USB_Device_Library/Core/Inc/usbd_ioreq.h
 autokey\usbd_hid.o: ../Middlewares/ST/STM32_USB_Device_Library/Core/Inc/usbd_def.h
 autokey\usbd_hid.o: ../USB_DEVICE/Target/usbd_conf.h
-autokey\usbd_hid.o: D:\keil4\ARM\ARMCC\Bin\..\include\stdio.h
 autokey\usbd_hid.o: D:\keil4\ARM\ARMCC\Bin\..\include\stdlib.h
 autokey\usbd_hid.o: D:\keil4\ARM\ARMCC\Bin\..\include\string.h
 autokey\usbd_hid.o: ../Core/Inc/main.h
@@ -32,6 +32,7 @@ autokey\usbd_hid.o: ../Drivers/STM32F1xx_HAL_Driver/Inc/stm32f1xx_hal_cortex.h
 autokey\usbd_hid.o: ../Drivers/STM32F1xx_HAL_Driver/Inc/stm32f1xx_hal_flash.h
 autokey\usbd_hid.o: ../Drivers/STM32F1xx_HAL_Driver/Inc/stm32f1xx_hal_flash_ex.h
 autokey\usbd_hid.o: ../Drivers/STM32F1xx_HAL_Driver/Inc/stm32f1xx_hal_pwr.h
+autokey\usbd_hid.o: ../Drivers/STM32F1xx_HAL_Driver/Inc/stm32f1xx_hal_uart.h
 autokey\usbd_hid.o: ../Drivers/STM32F1xx_HAL_Driver/Inc/stm32f1xx_hal_pcd.h
 autokey\usbd_hid.o: ../Drivers/STM32F1xx_HAL_Driver/Inc/stm32f1xx_ll_usb.h
 autokey\usbd_hid.o: ../Drivers/STM32F1xx_HAL_Driver/Inc/stm32f1xx_hal_pcd_ex.h

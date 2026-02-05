@@ -25,13 +25,14 @@ autokey\main.o: ../Drivers/STM32F1xx_HAL_Driver/Inc/stm32f1xx_hal_cortex.h
 autokey\main.o: ../Drivers/STM32F1xx_HAL_Driver/Inc/stm32f1xx_hal_flash.h
 autokey\main.o: ../Drivers/STM32F1xx_HAL_Driver/Inc/stm32f1xx_hal_flash_ex.h
 autokey\main.o: ../Drivers/STM32F1xx_HAL_Driver/Inc/stm32f1xx_hal_pwr.h
+autokey\main.o: ../Drivers/STM32F1xx_HAL_Driver/Inc/stm32f1xx_hal_uart.h
 autokey\main.o: ../Drivers/STM32F1xx_HAL_Driver/Inc/stm32f1xx_hal_pcd.h
 autokey\main.o: ../Drivers/STM32F1xx_HAL_Driver/Inc/stm32f1xx_ll_usb.h
 autokey\main.o: ../Drivers/STM32F1xx_HAL_Driver/Inc/stm32f1xx_hal_pcd_ex.h
+autokey\main.o: D:\keil4\ARM\ARMCC\Bin\..\include\stdio.h
 autokey\main.o: ../Core/Inc/keyboard.h
 autokey\main.o: ../USB_DEVICE/App/usb_device.h
 autokey\main.o: ../Middlewares/ST/STM32_USB_Device_Library/Core/Inc/usbd_def.h
 autokey\main.o: ../USB_DEVICE/Target/usbd_conf.h
-autokey\main.o: D:\keil4\ARM\ARMCC\Bin\..\include\stdio.h
 autokey\main.o: D:\keil4\ARM\ARMCC\Bin\..\include\stdlib.h
 autokey\main.o: D:\keil4\ARM\ARMCC\Bin\..\include\string.h

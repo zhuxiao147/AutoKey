@@ -19,6 +19,7 @@
 "autokey\stm32f1xx_hal_flash.o"
 "autokey\stm32f1xx_hal_flash_ex.o"
 "autokey\stm32f1xx_hal_exti.o"
+"autokey\stm32f1xx_hal_uart.o"
 "autokey\system_stm32f1xx.o"
 "autokey\usb_device.o"
 "autokey\usbd_desc.o"

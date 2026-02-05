@@ -236,6 +236,7 @@ bool HIDDevice::sendReport(QByteArray data) {
         } else {
             qDebug("Output report sent index =  %d.\n", index);
         }
+        Sleep(2);
 #endif
     }
 

@@ -19,7 +19,7 @@
 
 /* Includes ------------------------------------------------------------------*/
 #include "usbd_ioreq.h"
-
+#include <stdio.h>
 /** @addtogroup STM32_USB_DEVICE_LIBRARY
   * @{
   */

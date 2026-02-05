@@ -80,6 +80,7 @@ void MainWindow::onSendSequence()
     }
     
     if (m_hidDevice->sendData(data)) {
+        QMessageBox::information(this, "成功", "发送按键序列成功");
         showStatusMessage("按键序列发送成功");
     } else {
         QMessageBox::warning(this, "错误", "发送按键序列失败");
