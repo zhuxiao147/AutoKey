@@ -56,7 +56,6 @@ void MainWindow::onConnectDevice()
 
 void MainWindow::onSendSequence()
 {
-
     ui->sendButton->setEnabled(false);
 
     if (!m_hidDevice->isConnected()) {

@@ -678,7 +678,7 @@ static uint8_t  USBD_HID_Setup(USBD_HandleTypeDef *pdev,
           if (req->wIndex == 2)  /* Custom interface */
           {
             hhid->IsReportAvailable = 1U;
-            USBD_CtlPrepareRx(pdev, hhid->Report_outbuf, req->wLength);
+            USBD_CtlPrepareRx(pdev, hhid->ReportOutbuf, req->wLength);
             hhid->ReportSize = req->wLength;
           }
           break;
@@ -944,7 +944,7 @@ static uint8_t  USBD_HID_DataOut(USBD_HandleTypeDef *pdev,
     return USBD_FAIL;
   }
 
-  USBD_LL_PrepareReceive(pdev, HID_CUSTOM_EPOUT_ADDR, hhid->Report_outbuf,
+  USBD_LL_PrepareReceive(pdev, HID_CUSTOM_EPOUT_ADDR, hhid->ReportOutbuf,
                          USBD_CUSTOMHID_OUTREPORT_SIZE);
 
   return USBD_OK;
@@ -964,12 +964,11 @@ static uint8_t  USBD_HID_EP0_RxReady(USBD_HandleTypeDef  *pdev)
     return USBD_FAIL;
   }
   
-
   if (hhid->IsReportAvailable == 1U)
   {
     hhid->IsReportAvailable = 0U;
 
-    if(SYS_Receive_Data(&global_sysdata, hhid->Report_inbuf, hhid->ReportSize)){
+    if(SYS_Receive_Data(&global_sysdata, hhid->ReportOutbuf, hhid->ReportSize)){
       //get report ok
     }else{
       //get report retry

@@ -1,16 +1,15 @@
 ﻿#include "keysequenceparser.h"
+
+#include <QCryptographicHash>
+#include <QDataStream>
 #include <QDebug>
 #include <QRegularExpression>
-#include <QDataStream>
-#include <QCryptographicHash>
 
-KeySequenceParser::KeySequenceParser()
-{
+KeySequenceParser::KeySequenceParser() {
     initializeKeyMaps();
 }
 
-QByteArray KeySequenceParser::parseSequence(const QString &sequence)
-{
+QByteArray KeySequenceParser::parseSequence(const QString &sequence) {
     if (!validateSequence(sequence)) {
         return QByteArray();
     }
@@ -19,44 +18,43 @@ QByteArray KeySequenceParser::parseSequence(const QString &sequence)
     QByteArray data;
     QDataStream dataStream(&data, QIODevice::WriteOnly);
     dataStream.setByteOrder(QDataStream::LittleEndian);
-    
+
     // 构建数据部分
     for (const KeyAction &action : actions) {
         QByteArray actionData = actionToBytes(action);
         dataStream.writeRawData(actionData.constData(), actionData.size());
     }
-    
+
     QByteArray result;
     QDataStream resultStream(&result, QIODevice::WriteOnly);
     resultStream.setByteOrder(QDataStream::LittleEndian);
-    
+
     // 写入数据
     resultStream.writeRawData(data.constData(), data.size());
-    
+
     return result;
 }
 
 /**
  * @brief Validates a key sequence string.
- * 
+ *
  * @param sequence The key sequence string to validate.
  * @return true if the sequence is valid, false otherwise.
  */
-bool KeySequenceParser::validateSequence(const QString &sequence)
-{
+bool KeySequenceParser::validateSequence(const QString &sequence) {
     if (sequence.isEmpty()) {
         return false;
     }
-    
+
     QStringList parts = sequence.split(';', Qt::SkipEmptyParts);
-    
+
     for (const QString &part : parts) {
         QString trimmed = part.trimmed();
         if (trimmed.isEmpty()) {
             continue;
         }
-        
-        //判断延时格式
+
+        // 判断延时格式
         if (trimmed.contains("ms") && trimmed.endsWith("ms")) {
             bool ok;
             int delay = trimmed.left(trimmed.length() - 2).toInt(&ok);
@@ -65,8 +63,8 @@ bool KeySequenceParser::validateSequence(const QString &sequence)
             }
             continue;
         }
-        
-        //判断重复
+
+        // 判断重复
         if (trimmed.contains('(') && trimmed.endsWith(')')) {
             int openIndex = trimmed.indexOf('(');
             int closeIndex = trimmed.lastIndexOf(')');
@@ -81,8 +79,8 @@ bool KeySequenceParser::validateSequence(const QString &sequence)
                 trimmed = key; // Update trimmed to be the key only, matching parseActions logic
             }
         }
-        
-        //判断组合键或单个按键
+
+        // 判断组合键或单个按键
         if (trimmed.contains('+')) {
             QStringList comboKeys = trimmed.split('+', Qt::SkipEmptyParts);
             if (comboKeys.size() < 2) {
@@ -94,31 +92,30 @@ bool KeySequenceParser::validateSequence(const QString &sequence)
                 }
             }
             continue;
-        }else if (!m_keyMap.contains(trimmed)) {
+        } else if (!m_keyMap.contains(trimmed)) {
             return false;
         }
     }
-    
+
     return true;
 }
 
 /**
  * @brief Parses a key sequence string into a vector of KeyAction structs.
- * 
+ *
  * @param sequence The key sequence string to parse.
  * @return QVector<KeyAction> The vector of parsed KeyAction structs.
  */
-QVector<KeyAction> KeySequenceParser::parseActions(const QString &sequence)
-{
+QVector<KeyAction> KeySequenceParser::parseActions(const QString &sequence) {
     QVector<KeyAction> actions;
     QStringList parts = sequence.split(';', Qt::SkipEmptyParts);
-    
+
     for (const QString &part : parts) {
         QString trimmed = part.trimmed();
         if (trimmed.isEmpty()) {
             continue;
         }
-        
+
         // 处理延时
         if (trimmed.contains("ms") && trimmed.endsWith("ms")) {
             KeyAction action;
@@ -127,10 +124,10 @@ QVector<KeyAction> KeySequenceParser::parseActions(const QString &sequence)
             actions.append(action);
             continue;
         }
-        
+
         KeyAction action;
         action.type = KeyAction::KeyPress;
-        
+
         // 处理重复按键
         int repeatCount = 1;
         if (trimmed.contains('(') && trimmed.endsWith(')')) {
@@ -142,7 +139,7 @@ QVector<KeyAction> KeySequenceParser::parseActions(const QString &sequence)
                 trimmed = trimmed.left(openIndex); // 提取按键名称
             }
         }
-        
+
         // 处理组合键或单个按键
         if (trimmed.contains('+')) {
             QStringList comboKeys = trimmed.split('+', Qt::SkipEmptyParts);
@@ -152,90 +149,88 @@ QVector<KeyAction> KeySequenceParser::parseActions(const QString &sequence)
         } else {
             action.keys.append(trimmed);
         }
-        
+
         // 添加按键按下动作
         for (int i = 0; i < repeatCount; ++i) {
             KeyAction pressAction;
             pressAction.type = KeyAction::KeyPress;
             pressAction.keys = action.keys;
             actions.append(pressAction);
-            
         }
     }
-    
+
     return actions;
 }
 
-QByteArray KeySequenceParser::actionToBytes(const KeyAction &action)
-{
+QByteArray KeySequenceParser::actionToBytes(const KeyAction &action) {
     QByteArray result;
     QDataStream stream(&result, QIODevice::WriteOnly);
     stream.setByteOrder(QDataStream::LittleEndian);
-    
+
     switch (action.type) {
-    case KeyAction::KeyPress:
-        {
-            // 创建HID键盘报告（8字节）
-            HIDKeyboardReport report;
-            report.modifier = 0;
-            report.reserved = 0;
-            for (int i = 0; i < 6; ++i) {
-                report.keycode[i] = 0;
-            }
-            
-            // 设置修饰键和普通按键
-            int keyIndex = 0;
-            for (const QString &key : action.keys) {
-                quint8 keyCode = getKeyCode(key);
-                if (keyCode >= 0xE0 && keyCode <= 0xE7) {
-                    // 修饰键（Ctrl, Shift, Alt, Win等）
-                    report.modifier |= getModifierBits(key);
-                } else if (keyIndex < 6) {
-                    // 普通按键
-                    report.keycode[keyIndex++] = keyCode;
-                }
-            }
-            
-            // 写入8字节HID报告
-            stream << report.modifier;
-            stream << report.reserved;
-            for (int i = 0; i < 6; ++i) {
-                stream << report.keycode[i];
+    case KeyAction::KeyPress: {
+        // 创建HID键盘报告（8字节）
+        HIDKeyboardReport report;
+        report.modifier = 0;
+        report.reserved = 0;
+        for (int i = 0; i < 6; ++i) {
+            report.keycode[i] = 0;
+        }
+
+        // 设置修饰键和普通按键
+        int keyIndex = 0;
+        for (const QString &key : action.keys) {
+            quint8 keyCode = getKeyCode(key);
+            if (keyCode >= 0xE0 && keyCode <= 0xE7) {
+                // 修饰键（Ctrl, Shift, Alt, Win等）
+                report.modifier |= getModifierBits(key);
+            } else if (keyIndex < 6) {
+                // 普通按键
+                report.keycode[keyIndex++] = keyCode;
             }
         }
-        break;
-        
+
+        // 写入8字节HID报告
+        stream << (quint8)CMD_KEYBOARD;
+        stream << report.modifier;
+        stream << report.reserved;
+        for (int i = 0; i < 6; ++i) {
+            stream << report.keycode[i];
+        }
+    } break;
+
     case KeyAction::Delay:
-        // 延时数据占用2字节
-        stream << static_cast<quint16>(action.delay);
+        // 延时数据占用4字节
+        stream << (quint8)CMD_DELAY;
+        stream << static_cast<quint32>(action.delay);
         break;
     }
-    
+
     return result;
 }
 
-quint8 KeySequenceParser::getKeyCode(const QString &key)
-{
+quint8 KeySequenceParser::getKeyCode(const QString &key) {
     return m_keyMap.value(key, 0);
 }
 
-quint8 KeySequenceParser::getModifierBits(const QString& key)
-{
+quint8 KeySequenceParser::getModifierBits(const QString &key) {
     quint8 modifier = 0;
-    if (key == "Ctrl") modifier = 0x01;      // 左Ctrl
-    else if (key == "Shift") modifier = 0x02;  // 左Shift
-    else if (key == "Alt") modifier = 0x04;    // 左Alt
-    else if (key == "Win") modifier = 0x08;    // 左Win
+    if (key == "Ctrl")
+        modifier = 0x01; // 左Ctrl
+    else if (key == "Shift")
+        modifier = 0x02; // 左Shift
+    else if (key == "Alt")
+        modifier = 0x04; // 左Alt
+    else if (key == "Win")
+        modifier = 0x08; // 左Win
     return modifier;
 }
 
-quint32 KeySequenceParser::calculateCRC32(const QByteArray& data)
-{
+quint32 KeySequenceParser::calculateCRC32(const QByteArray &data) {
     return qChecksum(data.constData(), data.size());
 }
 
-void KeySequenceParser::initializeKeyMaps()
-{
+void KeySequenceParser::initializeKeyMaps() {
     // 初始化按键映射
     m_keyMap["A"] = 0x04;
     m_keyMap["B"] = 0x05;
@@ -263,7 +258,7 @@ void KeySequenceParser::initializeKeyMaps()
     m_keyMap["X"] = 0x1B;
     m_keyMap["Y"] = 0x1C;
     m_keyMap["Z"] = 0x1D;
-    
+
     m_keyMap["1"] = 0x1E;
     m_keyMap["2"] = 0x1F;
     m_keyMap["3"] = 0x20;
@@ -274,13 +269,13 @@ void KeySequenceParser::initializeKeyMaps()
     m_keyMap["8"] = 0x25;
     m_keyMap["9"] = 0x26;
     m_keyMap["0"] = 0x27;
-    
+
     m_keyMap["Enter"] = 0x28;
     m_keyMap["Esc"] = 0x29;
     m_keyMap["Backspace"] = 0x2A;
     m_keyMap["Tab"] = 0x2B;
     m_keyMap["Space"] = 0x2C;
-    
+
     m_keyMap["Ctrl"] = 0xE0;
     m_keyMap["Shift"] = 0xE1;
     m_keyMap["Alt"] = 0xE2;

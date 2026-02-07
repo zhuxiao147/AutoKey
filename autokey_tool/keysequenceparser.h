@@ -6,6 +6,13 @@
 #include <QVector>
 #include <QHash>
 
+typedef enum{
+    CMD_NONE = 0x00,
+    CMD_KEYBOARD = 0x01,
+    CMD_MOUSE = 0x02,
+    CMD_DELAY = 0x03,
+}CmdType;
+
 // HID键盘数据结构体
 typedef struct {
     uint8_t modifier; // 修饰键状态
@@ -16,6 +23,7 @@ typedef struct {
 struct KeyAction {
     enum Type {
         KeyPress,
+        MouseOpreat,
         Delay
     };
     Type type;
@@ -34,7 +42,6 @@ public:
 private:
     QVector<KeyAction> parseActions(const QString &sequence);
     QByteArray actionToBytes(const KeyAction &action);
-    QByteArray createHIDReport(const QVector<QString>& keys, bool isPress);
     quint8 getModifierBits(const QString& key);
     quint8 getKeyCode(const QString &key);
     quint32 calculateCRC32(const QByteArray& data);

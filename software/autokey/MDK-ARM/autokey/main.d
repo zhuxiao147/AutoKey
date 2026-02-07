@@ -36,3 +36,6 @@ autokey\main.o: ../Middlewares/ST/STM32_USB_Device_Library/Core/Inc/usbd_def.h
 autokey\main.o: ../USB_DEVICE/Target/usbd_conf.h
 autokey\main.o: D:\keil4\ARM\ARMCC\Bin\..\include\stdlib.h
 autokey\main.o: D:\keil4\ARM\ARMCC\Bin\..\include\string.h
+autokey\main.o: ../Core/Inc/sysdata.h
+autokey\main.o: D:\keil4\ARM\ARMCC\Bin\..\include\stdbool.h
+autokey\main.o: ../Core/Inc/key.h

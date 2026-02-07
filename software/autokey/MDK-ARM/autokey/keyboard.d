@@ -1,8 +1,6 @@
 autokey\keyboard.o: ..\Core\Src\keyboard.c
 autokey\keyboard.o: ../Core/Inc/keyboard.h
 autokey\keyboard.o: D:\keil4\ARM\ARMCC\Bin\..\include\stdint.h
-autokey\keyboard.o: ../Middlewares/ST/STM32_USB_Device_Library/Class/HID/Inc/usbd_hid.h
-autokey\keyboard.o: ../Middlewares/ST/STM32_USB_Device_Library/Core/Inc/usbd_ioreq.h
 autokey\keyboard.o: ../Middlewares/ST/STM32_USB_Device_Library/Core/Inc/usbd_def.h
 autokey\keyboard.o: ../USB_DEVICE/Target/usbd_conf.h
 autokey\keyboard.o: D:\keil4\ARM\ARMCC\Bin\..\include\stdio.h
@@ -37,6 +35,8 @@ autokey\keyboard.o: ../Drivers/STM32F1xx_HAL_Driver/Inc/stm32f1xx_hal_uart.h
 autokey\keyboard.o: ../Drivers/STM32F1xx_HAL_Driver/Inc/stm32f1xx_hal_pcd.h
 autokey\keyboard.o: ../Drivers/STM32F1xx_HAL_Driver/Inc/stm32f1xx_ll_usb.h
 autokey\keyboard.o: ../Drivers/STM32F1xx_HAL_Driver/Inc/stm32f1xx_hal_pcd_ex.h
+autokey\keyboard.o: ../Middlewares/ST/STM32_USB_Device_Library/Class/HID/Inc/usbd_hid.h
+autokey\keyboard.o: ../Middlewares/ST/STM32_USB_Device_Library/Core/Inc/usbd_ioreq.h
 autokey\keyboard.o: ../Middlewares/ST/STM32_USB_Device_Library/Core/Inc/usbd_core.h
 autokey\keyboard.o: ../Middlewares/ST/STM32_USB_Device_Library/Core/Inc/usbd_ioreq.h
 autokey\keyboard.o: ../Middlewares/ST/STM32_USB_Device_Library/Core/Inc/usbd_ctlreq.h

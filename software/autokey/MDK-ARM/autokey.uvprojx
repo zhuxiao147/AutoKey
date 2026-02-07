@@ -415,9 +415,14 @@
               <FilePath>..\Core\Src\keyboard.c</FilePath>
             </File>
             <File>
+              <FileName>key.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\Core\Src\key.c</FilePath>
+            </File>
+            <File>
               <FileName>sysdata.c</FileName>
               <FileType>1</FileType>
-              <FilePath>..\..\..\..\AutoKey\software\autokey\Core\Src\sysdata.c</FilePath>
+              <FilePath>..\Core\Src\sysdata.c</FilePath>
             </File>
           </Files>
         </Group>

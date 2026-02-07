@@ -144,7 +144,6 @@ bool HIDDevice::sendData(const QByteArray &data) {
         return false;
     }
 
-    
     QByteArray packet;
     QDataStream stream(&packet, QIODevice::WriteOnly);
     stream.setByteOrder(QDataStream::LittleEndian);

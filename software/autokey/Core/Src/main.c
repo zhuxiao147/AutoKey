@@ -19,6 +19,8 @@
 /* Includes ------------------------------------------------------------------*/
 #include "main.h"
 #include "usb_device.h"
+#include "sysdata.h"
+#include "key.h"
 
 /* Private includes ----------------------------------------------------------*/
 /* USER CODE BEGIN Includes */
@@ -93,7 +95,8 @@ int main(void)
   MX_USB_DEVICE_Init();
   MX_USART1_UART_Init();
   /* USER CODE BEGIN 2 */
-
+  Key_GPIO_Config();
+  EXTI_Config();
   /* USER CODE END 2 */
 
   /* Infinite loop */
@@ -101,15 +104,11 @@ int main(void)
   while (1)
   {
     /* USER CODE END WHILE */
-    //HID_Keyboard_Data keyboard_data = {0};
-    //keyboard_data.modifier = 0;
-    //keyboard_data.keycode[0] = 0x04;
-    //HID_Keyboard_Send(&keyboard_data);
-    //HAL_Delay(15);
-    //keyboard_data.keycode[0] = 0x00;
-    //HID_Keyboard_Send(&keyboard_data);
-    //printf("hello world\n");
-    HAL_Delay(5000);
+    if (runStatus)
+    {
+      SYS_Process_Data(&global_sysdata);
+    }
+    
     /* USER CODE BEGIN 3 */
   }
   /* USER CODE END 3 */
@@ -161,7 +160,6 @@ void SystemClock_Config(void)
   }
 }
 
-
 int fputc(int ch, FILE *f) {
     HAL_UART_Transmit(&huart1, (uint8_t*)&ch, 1, HAL_MAX_DELAY);
     return ch;
@@ -198,7 +196,6 @@ static void MX_USART1_UART_Init(void)
   /* USER CODE END USART1_Init 2 */
 
 }
-
 
 /**
   * @brief GPIO Initialization Function

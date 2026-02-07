@@ -98,8 +98,8 @@ HID_StateTypeDef;
 
 typedef struct
 {
-  uint8_t              Report_inbuf[USBD_CUSTOMHID_INREPORT_SIZE + 1];
-  uint8_t              Report_outbuf[USBD_CUSTOMHID_OUTREPORT_SIZE + 1];
+  uint8_t              ReportInbuf[USBD_CUSTOMHID_INREPORT_SIZE + 1];
+  uint8_t              ReportOutbuf[USBD_CUSTOMHID_OUTREPORT_SIZE + 1];
   uint32_t             Protocol;
   uint32_t             IdleState;
   uint32_t             AltSetting;
