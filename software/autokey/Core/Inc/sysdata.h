@@ -27,7 +27,7 @@
 
 typedef enum
 {
-    SYS_RECEIVE_NONE = 0x00,
+    SYS_RECEIVE_ERROR = 0x00,
     SYS_RECEIVE_CONTINUE = 0x01,
     SYS_RECEIVE_FINISHED = 0x02,
 } SYS_Status;

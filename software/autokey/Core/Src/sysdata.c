@@ -5,7 +5,6 @@
 #include <stdio.h>
 #include <string.h>
 
-
 SYS_Data global_sysdata = {0};
 
 bool SYS_Check_CRC32(SYS_Data *sysdata);
@@ -20,8 +19,16 @@ void SYS_Clear_Data(SYS_Data *sysdata) {
 
 bool SYS_Update_Status(SYS_Data *sysdata) {
     if (sysdata->dataOffset == sysdata->dataSize) {
-        // 设置接收完成标志
-        sysdata->status = SYS_RECEIVE_FINISHED;
+        // 校验数据
+        if (SYS_Check_CRC32(sysdata)) {
+            // 设置接收完成标志
+            sysdata->status = SYS_RECEIVE_FINISHED;
+            return true;
+        } else {
+            // 校验失败
+            sysdata->status = SYS_RECEIVE_ERROR;
+            return false;
+        }
     } else if (sysdata->dataOffset > sysdata->dataSize) {
         // 接收数据长度超出总数据长度
         return false;
@@ -106,11 +113,6 @@ void SYS_Process_Data(SYS_Data *sysdata) {
         return;
     }
 
-    // 校验数据
-    if (!SYS_Check_CRC32(sysdata)) {
-        return;
-    }
-
     // 解析命令
     SYS_Cmd cmd;
     memset(&cmd, 0, sizeof(SYS_Cmd));
@@ -168,9 +170,12 @@ uint32_t SYS_Run_Cmd(SYS_Cmd *cmd) {
         iterator = SYS_CMD_KEYBOARD_SIZE;
         HID_Keyboard_Data empty_keyboard_data;
         memset(&empty_keyboard_data, 0, sizeof(HID_Keyboard_Data));
-        HID_Keyboard_Send((HID_Keyboard_Data *)cmd->cmdData);
 
-        SYS_Delay_ms(500);
+        HID_Keyboard_Send((HID_Keyboard_Data *)cmd->cmdData);
+        SYS_Delay_ms(20);
+        HID_Keyboard_Send(&empty_keyboard_data);
+        SYS_Delay_ms(50);
+
         break;
     case SYS_CMD_MOUSE:
         iterator = SYS_CMD_MOUSE_SIZE;

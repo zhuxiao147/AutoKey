@@ -817,6 +817,10 @@ uint8_t USBD_HID_SendReport(USBD_HandleTypeDef  *pdev,
                        report,
                        len);
     }
+    else
+    {
+      return HID_BUSY;
+    }
   }
   return USBD_OK;
 }
@@ -840,6 +844,10 @@ uint8_t USBD_HID_SendKeyboardReport(USBD_HandleTypeDef  *pdev,
                        HID_KB_EPIN_ADDR,
                        report,
                        len);
+    }
+    else
+    {
+      return HID_BUSY;
     }
   }
   return USBD_OK;

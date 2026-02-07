@@ -1,7 +1,7 @@
 Dependencies for Project 'autokey', Target 'autokey': (DO NOT MODIFY !)
 CompilerVersion: 5030076::V5.03 [Build 76]::..\..\keil4\ARM\ARMCC
 F (startup_stm32f103xb.s)(0x697EED51)(--cpu Cortex-M3 -g --apcs=interwork --pd "__MICROLIB SETA 1"-I.\RTE\_autokey-ID:\keil5\ARM\CMSIS\6.2.0\CMSIS\Core\Include-ID:\keil5\Keil\STM32F1xx_DFP\2.4.1\Device\Include--pd "__UVISION_VERSION SETA 538" --pd "_RTE_ SETA 1" --pd "STM32F10X_MD SETA 1" --pd "_RTE_ SETA 1"--list startup_stm32f103xb.lst --xref -o autokey\startup_stm32f103xb.o --depend autokey\startup_stm32f103xb.d)
-F (../Core/Src/main.c)(0x69870854)(--c99 -c --cpu Cortex-M3 -D__MICROLIB -g -O0 --apcs=interwork --split_sections -I ../Core/Inc -I ../Drivers/STM32F1xx_HAL_Driver/Inc -I ../Drivers/STM32F1xx_HAL_Driver/Inc/Legacy -I ../Drivers/CMSIS/Device/ST/STM32F1xx/Include -I ../Drivers/CMSIS/Include -I ../USB_DEVICE/App -I ../USB_DEVICE/Target -I ../Middlewares/ST/STM32_USB_Device_Library/Core/Inc -I ../Middlewares/ST/STM32_USB_Device_Library/Class/HID/Inc-I.\RTE\_autokey-ID:\keil5\ARM\CMSIS\6.2.0\CMSIS\Core\Include-ID:\keil5\Keil\STM32F1xx_DFP\2.4.1\Device\Include-D__UVISION_VERSION="538" -D_RTE_ -DSTM32F10X_MD -D_RTE_ -DUSE_HAL_DRIVER -DSTM32F103xB-o autokey\main.o --omf_browse autokey\main.crf --depend autokey\main.d)
+F (../Core/Src/main.c)(0x69873B4F)(--c99 -c --cpu Cortex-M3 -D__MICROLIB -g -O0 --apcs=interwork --split_sections -I ../Core/Inc -I ../Drivers/STM32F1xx_HAL_Driver/Inc -I ../Drivers/STM32F1xx_HAL_Driver/Inc/Legacy -I ../Drivers/CMSIS/Device/ST/STM32F1xx/Include -I ../Drivers/CMSIS/Include -I ../USB_DEVICE/App -I ../USB_DEVICE/Target -I ../Middlewares/ST/STM32_USB_Device_Library/Core/Inc -I ../Middlewares/ST/STM32_USB_Device_Library/Class/HID/Inc-I.\RTE\_autokey-ID:\keil5\ARM\CMSIS\6.2.0\CMSIS\Core\Include-ID:\keil5\Keil\STM32F1xx_DFP\2.4.1\Device\Include-D__UVISION_VERSION="538" -D_RTE_ -DSTM32F10X_MD -D_RTE_ -DUSE_HAL_DRIVER -DSTM32F103xB-o autokey\main.o --omf_browse autokey\main.crf --depend autokey\main.d)
 I (../Core/Inc/main.h)(0x6984A39E)
 I (../Drivers/STM32F1xx_HAL_Driver/Inc/stm32f1xx_hal.h)(0x697EED51)
 I (../Core/Inc/stm32f1xx_hal_conf.h)(0x6984AB0D)
@@ -38,7 +38,7 @@ I (../Middlewares/ST/STM32_USB_Device_Library/Core/Inc/usbd_def.h)(0x697EED51)
 I (../USB_DEVICE/Target/usbd_conf.h)(0x697EED51)
 I (D:\keil4\ARM\ARMCC\include\stdlib.h)(0x51C7B744)
 I (D:\keil4\ARM\ARMCC\include\string.h)(0x51C7B744)
-I (../Core/Inc/sysdata.h)(0x6986FAFC)
+I (../Core/Inc/sysdata.h)(0x6987469B)
 I (D:\keil4\ARM\ARMCC\include\stdbool.h)(0x51C7B744)
 I (../Core/Inc/key.h)(0x6987010E)
 F (../Core/Src/stm32f1xx_it.c)(0x698702DE)(--c99 -c --cpu Cortex-M3 -D__MICROLIB -g -O0 --apcs=interwork --split_sections -I ../Core/Inc -I ../Drivers/STM32F1xx_HAL_Driver/Inc -I ../Drivers/STM32F1xx_HAL_Driver/Inc/Legacy -I ../Drivers/CMSIS/Device/ST/STM32F1xx/Include -I ../Drivers/CMSIS/Include -I ../USB_DEVICE/App -I ../USB_DEVICE/Target -I ../Middlewares/ST/STM32_USB_Device_Library/Core/Inc -I ../Middlewares/ST/STM32_USB_Device_Library/Class/HID/Inc-I.\RTE\_autokey-ID:\keil5\ARM\CMSIS\6.2.0\CMSIS\Core\Include-ID:\keil5\Keil\STM32F1xx_DFP\2.4.1\Device\Include-D__UVISION_VERSION="538" -D_RTE_ -DSTM32F10X_MD -D_RTE_ -DUSE_HAL_DRIVER -DSTM32F103xB-o autokey\stm32f1xx_it.o --omf_browse autokey\stm32f1xx_it.crf --depend autokey\stm32f1xx_it.d)
@@ -106,7 +106,7 @@ I (../Drivers/STM32F1xx_HAL_Driver/Inc/stm32f1xx_ll_usb.h)(0x697EED51)
 I (../Drivers/STM32F1xx_HAL_Driver/Inc/stm32f1xx_hal_pcd_ex.h)(0x697EED51)
 I (D:\keil4\ARM\ARMCC\include\stdio.h)(0x51C7B744)
 I (../Core/Inc/keyboard.h)(0x697EED51)
-F (..\Core\Src\keyboard.c)(0x69870D3C)(--c99 -c --cpu Cortex-M3 -D__MICROLIB -g -O0 --apcs=interwork --split_sections -I ../Core/Inc -I ../Drivers/STM32F1xx_HAL_Driver/Inc -I ../Drivers/STM32F1xx_HAL_Driver/Inc/Legacy -I ../Drivers/CMSIS/Device/ST/STM32F1xx/Include -I ../Drivers/CMSIS/Include -I ../USB_DEVICE/App -I ../USB_DEVICE/Target -I ../Middlewares/ST/STM32_USB_Device_Library/Core/Inc -I ../Middlewares/ST/STM32_USB_Device_Library/Class/HID/Inc-I.\RTE\_autokey-ID:\keil5\ARM\CMSIS\6.2.0\CMSIS\Core\Include-ID:\keil5\Keil\STM32F1xx_DFP\2.4.1\Device\Include-D__UVISION_VERSION="538" -D_RTE_ -DSTM32F10X_MD -D_RTE_ -DUSE_HAL_DRIVER -DSTM32F103xB-o autokey\keyboard.o --omf_browse autokey\keyboard.crf --depend autokey\keyboard.d)
+F (..\Core\Src\keyboard.c)(0x69874467)(--c99 -c --cpu Cortex-M3 -D__MICROLIB -g -O0 --apcs=interwork --split_sections -I ../Core/Inc -I ../Drivers/STM32F1xx_HAL_Driver/Inc -I ../Drivers/STM32F1xx_HAL_Driver/Inc/Legacy -I ../Drivers/CMSIS/Device/ST/STM32F1xx/Include -I ../Drivers/CMSIS/Include -I ../USB_DEVICE/App -I ../USB_DEVICE/Target -I ../Middlewares/ST/STM32_USB_Device_Library/Core/Inc -I ../Middlewares/ST/STM32_USB_Device_Library/Class/HID/Inc-I.\RTE\_autokey-ID:\keil5\ARM\CMSIS\6.2.0\CMSIS\Core\Include-ID:\keil5\Keil\STM32F1xx_DFP\2.4.1\Device\Include-D__UVISION_VERSION="538" -D_RTE_ -DSTM32F10X_MD -D_RTE_ -DUSE_HAL_DRIVER -DSTM32F103xB-o autokey\keyboard.o --omf_browse autokey\keyboard.crf --depend autokey\keyboard.d)
 I (../Core/Inc/keyboard.h)(0x697EED51)
 I (D:\keil4\ARM\ARMCC\include\stdint.h)(0x51C7B744)
 I (../Middlewares/ST/STM32_USB_Device_Library/Core/Inc/usbd_def.h)(0x697EED51)
@@ -177,8 +177,8 @@ I (../Drivers/STM32F1xx_HAL_Driver/Inc/stm32f1xx_hal_pcd.h)(0x697EED51)
 I (../Drivers/STM32F1xx_HAL_Driver/Inc/stm32f1xx_ll_usb.h)(0x697EED51)
 I (../Drivers/STM32F1xx_HAL_Driver/Inc/stm32f1xx_hal_pcd_ex.h)(0x697EED51)
 I (D:\keil4\ARM\ARMCC\include\stdio.h)(0x51C7B744)
-F (..\Core\Src\sysdata.c)(0x69870CC5)(--c99 -c --cpu Cortex-M3 -D__MICROLIB -g -O0 --apcs=interwork --split_sections -I ../Core/Inc -I ../Drivers/STM32F1xx_HAL_Driver/Inc -I ../Drivers/STM32F1xx_HAL_Driver/Inc/Legacy -I ../Drivers/CMSIS/Device/ST/STM32F1xx/Include -I ../Drivers/CMSIS/Include -I ../USB_DEVICE/App -I ../USB_DEVICE/Target -I ../Middlewares/ST/STM32_USB_Device_Library/Core/Inc -I ../Middlewares/ST/STM32_USB_Device_Library/Class/HID/Inc-I.\RTE\_autokey-ID:\keil5\ARM\CMSIS\6.2.0\CMSIS\Core\Include-ID:\keil5\Keil\STM32F1xx_DFP\2.4.1\Device\Include-D__UVISION_VERSION="538" -D_RTE_ -DSTM32F10X_MD -D_RTE_ -DUSE_HAL_DRIVER -DSTM32F103xB-o autokey\sysdata.o --omf_browse autokey\sysdata.crf --depend autokey\sysdata.d)
-I (../Core/Inc/sysdata.h)(0x6986FAFC)
+F (..\Core\Src\sysdata.c)(0x698746B4)(--c99 -c --cpu Cortex-M3 -D__MICROLIB -g -O0 --apcs=interwork --split_sections -I ../Core/Inc -I ../Drivers/STM32F1xx_HAL_Driver/Inc -I ../Drivers/STM32F1xx_HAL_Driver/Inc/Legacy -I ../Drivers/CMSIS/Device/ST/STM32F1xx/Include -I ../Drivers/CMSIS/Include -I ../USB_DEVICE/App -I ../USB_DEVICE/Target -I ../Middlewares/ST/STM32_USB_Device_Library/Core/Inc -I ../Middlewares/ST/STM32_USB_Device_Library/Class/HID/Inc-I.\RTE\_autokey-ID:\keil5\ARM\CMSIS\6.2.0\CMSIS\Core\Include-ID:\keil5\Keil\STM32F1xx_DFP\2.4.1\Device\Include-D__UVISION_VERSION="538" -D_RTE_ -DSTM32F10X_MD -D_RTE_ -DUSE_HAL_DRIVER -DSTM32F103xB-o autokey\sysdata.o --omf_browse autokey\sysdata.crf --depend autokey\sysdata.d)
+I (../Core/Inc/sysdata.h)(0x6987469B)
 I (D:\keil4\ARM\ARMCC\include\stdbool.h)(0x51C7B744)
 I (D:\keil4\ARM\ARMCC\include\stdint.h)(0x51C7B744)
 I (../Drivers/STM32F1xx_HAL_Driver/Inc/stm32f1xx_hal.h)(0x697EED51)
@@ -914,7 +914,7 @@ I (../Drivers/STM32F1xx_HAL_Driver/Inc/stm32f1xx_hal_pcd_ex.h)(0x697EED51)
 I (../Core/Inc/keyboard.h)(0x697EED51)
 I (../Middlewares/ST/STM32_USB_Device_Library/Core/Inc/usbd_core.h)(0x697EED51)
 I (../Middlewares/ST/STM32_USB_Device_Library/Core/Inc/usbd_ctlreq.h)(0x697EED51)
-F (../Middlewares/ST/STM32_USB_Device_Library/Class/HID/Src/usbd_hid.c)(0x6986D0B6)(--c99 -c --cpu Cortex-M3 -D__MICROLIB -g -O0 --apcs=interwork --split_sections -I ../Core/Inc -I ../Drivers/STM32F1xx_HAL_Driver/Inc -I ../Drivers/STM32F1xx_HAL_Driver/Inc/Legacy -I ../Drivers/CMSIS/Device/ST/STM32F1xx/Include -I ../Drivers/CMSIS/Include -I ../USB_DEVICE/App -I ../USB_DEVICE/Target -I ../Middlewares/ST/STM32_USB_Device_Library/Core/Inc -I ../Middlewares/ST/STM32_USB_Device_Library/Class/HID/Inc-I.\RTE\_autokey-ID:\keil5\ARM\CMSIS\6.2.0\CMSIS\Core\Include-ID:\keil5\Keil\STM32F1xx_DFP\2.4.1\Device\Include-D__UVISION_VERSION="538" -D_RTE_ -DSTM32F10X_MD -D_RTE_ -DUSE_HAL_DRIVER -DSTM32F103xB-o autokey\usbd_hid.o --omf_browse autokey\usbd_hid.crf --depend autokey\usbd_hid.d)
+F (../Middlewares/ST/STM32_USB_Device_Library/Class/HID/Src/usbd_hid.c)(0x698741B8)(--c99 -c --cpu Cortex-M3 -D__MICROLIB -g -O0 --apcs=interwork --split_sections -I ../Core/Inc -I ../Drivers/STM32F1xx_HAL_Driver/Inc -I ../Drivers/STM32F1xx_HAL_Driver/Inc/Legacy -I ../Drivers/CMSIS/Device/ST/STM32F1xx/Include -I ../Drivers/CMSIS/Include -I ../USB_DEVICE/App -I ../USB_DEVICE/Target -I ../Middlewares/ST/STM32_USB_Device_Library/Core/Inc -I ../Middlewares/ST/STM32_USB_Device_Library/Class/HID/Inc-I.\RTE\_autokey-ID:\keil5\ARM\CMSIS\6.2.0\CMSIS\Core\Include-ID:\keil5\Keil\STM32F1xx_DFP\2.4.1\Device\Include-D__UVISION_VERSION="538" -D_RTE_ -DSTM32F10X_MD -D_RTE_ -DUSE_HAL_DRIVER -DSTM32F103xB-o autokey\usbd_hid.o --omf_browse autokey\usbd_hid.crf --depend autokey\usbd_hid.d)
 I (D:\keil4\ARM\ARMCC\include\stdio.h)(0x51C7B744)
 I (../Middlewares/ST/STM32_USB_Device_Library/Class/HID/Inc/usbd_hid.h)(0x6986CCE3)
 I (../Middlewares/ST/STM32_USB_Device_Library/Core/Inc/usbd_ioreq.h)(0x697EED51)
@@ -954,5 +954,5 @@ I (../Drivers/STM32F1xx_HAL_Driver/Inc/stm32f1xx_hal_pcd_ex.h)(0x697EED51)
 I (../Core/Inc/keyboard.h)(0x697EED51)
 I (../Middlewares/ST/STM32_USB_Device_Library/Core/Inc/usbd_core.h)(0x697EED51)
 I (../Middlewares/ST/STM32_USB_Device_Library/Core/Inc/usbd_ctlreq.h)(0x697EED51)
-I (../Core/Inc/sysdata.h)(0x6986FAFC)
+I (../Core/Inc/sysdata.h)(0x6987469B)
 I (D:\keil4\ARM\ARMCC\include\stdbool.h)(0x51C7B744)
