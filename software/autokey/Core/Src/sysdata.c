@@ -167,15 +167,11 @@ uint32_t SYS_Run_Cmd(SYS_Cmd *cmd) {
     uint32_t iterator = 0;
     switch (cmd->cmdType) {
     case SYS_CMD_KEYBOARD:
-        iterator = SYS_CMD_KEYBOARD_SIZE;
-        HID_Keyboard_Data empty_keyboard_data;
-        memset(&empty_keyboard_data, 0, sizeof(HID_Keyboard_Data));
-
-        HID_Keyboard_Send((HID_Keyboard_Data *)cmd->cmdData);
+        Keyboard_Send((HID_Keyboard_Data *)cmd->cmdData);
         SYS_Delay_ms(20);
-        HID_Keyboard_Send(&empty_keyboard_data);
+        Keyboard_SendEmpty();
         SYS_Delay_ms(50);
-
+        iterator = SYS_CMD_KEYBOARD_SIZE;
         break;
     case SYS_CMD_MOUSE:
         iterator = SYS_CMD_MOUSE_SIZE;
@@ -187,6 +183,7 @@ uint32_t SYS_Run_Cmd(SYS_Cmd *cmd) {
     default:
         break;
     }
+    //debug
     for (uint32_t i = 0; i < iterator; i++) {
         printf("%d ", cmd->cmdData[i]);
     }

@@ -39,7 +39,7 @@ typedef struct {
     uint8_t keycode[6]; // 普通按键的键值
 } HID_Keyboard_Data;
 
-uint8_t HID_Keyboard_Send(HID_Keyboard_Data *data);
-
+uint8_t Keyboard_Send(HID_Keyboard_Data *data);
+void Keyboard_SendEmpty(void);
 
 #endif //__KEYBOARD_H__

@@ -341,7 +341,7 @@ Global Symbols
 <BR>[Calls]<UL><LI><a href="#[57]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;HAL_GetTick
 </UL>
 <BR>[Called By]<UL><LI><a href="#[ae]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;SYS_Delay_ms
-<LI><a href="#[a0]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;HID_Keyboard_Send
+<LI><a href="#[a0]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;Keyboard_Send
 </UL>
 
 <P><STRONG><a name="[58]"></a>HAL_GPIO_EXTI_Callback</STRONG> (Thumb, 50 bytes, Stack size 16 bytes, key.o(i.HAL_GPIO_EXTI_Callback))
@@ -694,8 +694,8 @@ Global Symbols
 <BR>[Called By]<UL><LI><a href="#[49]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;fputc
 </UL>
 
-<P><STRONG><a name="[a0]"></a>HID_Keyboard_Send</STRONG> (Thumb, 36 bytes, Stack size 8 bytes, keyboard.o(i.HID_Keyboard_Send))
-<BR><BR>[Stack]<UL><LI>Max Depth = 148<LI>Call Chain = HID_Keyboard_Send &rArr; USBD_HID_SendKeyboardReport &rArr; USBD_LL_Transmit &rArr; HAL_PCD_EP_Transmit &rArr; USB_EPStartXfer &rArr; USB_WritePMA
+<P><STRONG><a name="[a0]"></a>Keyboard_Send</STRONG> (Thumb, 36 bytes, Stack size 8 bytes, keyboard.o(i.Keyboard_Send))
+<BR><BR>[Stack]<UL><LI>Max Depth = 148<LI>Call Chain = Keyboard_Send &rArr; USBD_HID_SendKeyboardReport &rArr; USBD_LL_Transmit &rArr; HAL_PCD_EP_Transmit &rArr; USB_EPStartXfer &rArr; USB_WritePMA
 </UL>
 <BR>[Calls]<UL><LI><a href="#[a1]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;USBD_HID_SendKeyboardReport
 <LI><a href="#[56]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;HAL_Delay
@@ -771,7 +771,7 @@ Global Symbols
 </UL>
 
 <P><STRONG><a name="[af]"></a>SYS_Process_Data</STRONG> (Thumb, 104 bytes, Stack size 16 bytes, sysdata.o(i.SYS_Process_Data))
-<BR><BR>[Stack]<UL><LI>Max Depth = 188<LI>Call Chain = SYS_Process_Data &rArr; SYS_Run_Cmd &rArr; HID_Keyboard_Send &rArr; USBD_HID_SendKeyboardReport &rArr; USBD_LL_Transmit &rArr; HAL_PCD_EP_Transmit &rArr; USB_EPStartXfer &rArr; USB_WritePMA
+<BR><BR>[Stack]<UL><LI>Max Depth = 188<LI>Call Chain = SYS_Process_Data &rArr; SYS_Run_Cmd &rArr; Keyboard_Send &rArr; USBD_HID_SendKeyboardReport &rArr; USBD_LL_Transmit &rArr; HAL_PCD_EP_Transmit &rArr; USB_EPStartXfer &rArr; USB_WritePMA
 </UL>
 <BR>[Calls]<UL><LI><a href="#[b0]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;SYS_Run_Cmd
 </UL>
@@ -789,10 +789,10 @@ Global Symbols
 </UL>
 
 <P><STRONG><a name="[b0]"></a>SYS_Run_Cmd</STRONG> (Thumb, 112 bytes, Stack size 24 bytes, sysdata.o(i.SYS_Run_Cmd))
-<BR><BR>[Stack]<UL><LI>Max Depth = 172<LI>Call Chain = SYS_Run_Cmd &rArr; HID_Keyboard_Send &rArr; USBD_HID_SendKeyboardReport &rArr; USBD_LL_Transmit &rArr; HAL_PCD_EP_Transmit &rArr; USB_EPStartXfer &rArr; USB_WritePMA
+<BR><BR>[Stack]<UL><LI>Max Depth = 172<LI>Call Chain = SYS_Run_Cmd &rArr; Keyboard_Send &rArr; USBD_HID_SendKeyboardReport &rArr; USBD_LL_Transmit &rArr; HAL_PCD_EP_Transmit &rArr; USB_EPStartXfer &rArr; USB_WritePMA
 </UL>
 <BR>[Calls]<UL><LI><a href="#[ae]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;SYS_Delay_ms
-<LI><a href="#[a0]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;HID_Keyboard_Send
+<LI><a href="#[a0]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;Keyboard_Send
 <LI><a href="#[5a]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;__2printf
 </UL>
 <BR>[Called By]<UL><LI><a href="#[af]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;SYS_Process_Data
@@ -967,7 +967,7 @@ Global Symbols
 </UL>
 <BR>[Calls]<UL><LI><a href="#[bd]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;USBD_LL_Transmit
 </UL>
-<BR>[Called By]<UL><LI><a href="#[a0]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;HID_Keyboard_Send
+<BR>[Called By]<UL><LI><a href="#[a0]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;Keyboard_Send
 </UL>
 
 <P><STRONG><a name="[a7]"></a>USBD_Init</STRONG> (Thumb, 68 bytes, Stack size 16 bytes, usbd_core.o(i.USBD_Init))
@@ -1345,7 +1345,7 @@ Global Symbols
 <BR>[Address Reference Count : 1]<UL><LI> printf1.o(i.__0printf$1)
 </UL>
 <P><STRONG><a name="[46]"></a>main</STRONG> (Thumb, 44 bytes, Stack size 0 bytes, main.o(i.main))
-<BR><BR>[Stack]<UL><LI>Max Depth = 188<LI>Call Chain = main &rArr; SYS_Process_Data &rArr; SYS_Run_Cmd &rArr; HID_Keyboard_Send &rArr; USBD_HID_SendKeyboardReport &rArr; USBD_LL_Transmit &rArr; HAL_PCD_EP_Transmit &rArr; USB_EPStartXfer &rArr; USB_WritePMA
+<BR><BR>[Stack]<UL><LI>Max Depth = 188<LI>Call Chain = main &rArr; SYS_Process_Data &rArr; SYS_Run_Cmd &rArr; Keyboard_Send &rArr; USBD_HID_SendKeyboardReport &rArr; USBD_LL_Transmit &rArr; HAL_PCD_EP_Transmit &rArr; USB_EPStartXfer &rArr; USB_WritePMA
 </UL>
 <BR>[Calls]<UL><LI><a href="#[af]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;SYS_Process_Data
 <LI><a href="#[a6]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;MX_USB_DEVICE_Init

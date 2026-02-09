@@ -2,7 +2,6 @@
 #define __SYS_DATA_H__
 #include <stdbool.h>
 #include <stdint.h>
-#include "stm32f1xx_hal.h"
 
 #define MAX_SYS_DATA_SIZE (1024*2)
 

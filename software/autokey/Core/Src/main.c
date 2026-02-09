@@ -108,6 +108,10 @@ int main(void)
     {
       SYS_Process_Data(&global_sysdata);
     }
+    else
+    {
+      Keyboard_SendEmpty();
+    }
     
     /* USER CODE BEGIN 3 */
   }

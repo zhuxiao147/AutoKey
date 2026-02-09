@@ -45,9 +45,9 @@ Section Cross References
     stm32f1xx_it.o(i.USB_LP_CAN1_RX0_IRQHandler) refers to usbd_conf.o(.bss) for hpcd_USB_FS
     stm32f1xx_hal_msp.o(i.HAL_UART_MspDeInit) refers to stm32f1xx_hal_gpio.o(i.HAL_GPIO_DeInit) for HAL_GPIO_DeInit
     stm32f1xx_hal_msp.o(i.HAL_UART_MspInit) refers to stm32f1xx_hal_gpio.o(i.HAL_GPIO_Init) for HAL_GPIO_Init
-    keyboard.o(i.HID_Keyboard_Send) refers to stm32f1xx_hal.o(i.HAL_Delay) for HAL_Delay
-    keyboard.o(i.HID_Keyboard_Send) refers to usbd_hid.o(i.USBD_HID_SendKeyboardReport) for USBD_HID_SendKeyboardReport
-    keyboard.o(i.HID_Keyboard_Send) refers to usb_device.o(.bss) for hUsbDeviceFS
+    keyboard.o(i.Keyboard_Send) refers to stm32f1xx_hal.o(i.HAL_Delay) for HAL_Delay
+    keyboard.o(i.Keyboard_Send) refers to usbd_hid.o(i.USBD_HID_SendKeyboardReport) for USBD_HID_SendKeyboardReport
+    keyboard.o(i.Keyboard_Send) refers to usb_device.o(.bss) for hUsbDeviceFS
     key.o(i.EXTI_Config) refers to stm32f1xx_hal_cortex.o(i.HAL_NVIC_SetPriority) for HAL_NVIC_SetPriority
     key.o(i.EXTI_Config) refers to stm32f1xx_hal_cortex.o(i.HAL_NVIC_EnableIRQ) for HAL_NVIC_EnableIRQ
     key.o(i.HAL_GPIO_EXTI_Callback) refers to key.o(i.Key_Scan) for Key_Scan
@@ -63,7 +63,7 @@ Section Cross References
     sysdata.o(i.SYS_Receive_Data) refers to sysdata.o(i.SYS_Clear_Data) for SYS_Clear_Data
     sysdata.o(i.SYS_Receive_Data) refers to memcpya.o(.text) for __aeabi_memcpy
     sysdata.o(i.SYS_Receive_Data) refers to sysdata.o(i.SYS_Update_Status) for SYS_Update_Status
-    sysdata.o(i.SYS_Run_Cmd) refers to keyboard.o(i.HID_Keyboard_Send) for HID_Keyboard_Send
+    sysdata.o(i.SYS_Run_Cmd) refers to keyboard.o(i.Keyboard_Send) for Keyboard_Send
     sysdata.o(i.SYS_Run_Cmd) refers to sysdata.o(i.SYS_Delay_ms) for SYS_Delay_ms
     sysdata.o(i.SYS_Run_Cmd) refers to printf1.o(i.__0printf$1) for __2printf
     sysdata.o(i.SYS_Update_Status) refers to sysdata.o(i.SYS_Check_CRC32) for SYS_Check_CRC32
@@ -1249,7 +1249,7 @@ Image Symbol Table
     i.HAL_UART_Init                          0x08001dbc   Section        0  stm32f1xx_hal_uart.o(i.HAL_UART_Init)
     i.HAL_UART_MspInit                       0x08001e34   Section        0  stm32f1xx_hal_msp.o(i.HAL_UART_MspInit)
     i.HAL_UART_Transmit                      0x08001ebc   Section        0  stm32f1xx_hal_uart.o(i.HAL_UART_Transmit)
-    i.HID_Keyboard_Send                      0x08001f7c   Section        0  keyboard.o(i.HID_Keyboard_Send)
+    i.Keyboard_Send                      0x08001f7c   Section        0  keyboard.o(i.Keyboard_Send)
     i.HardFault_Handler                      0x08001fa4   Section        0  stm32f1xx_it.o(i.HardFault_Handler)
     i.IntToUnicode                           0x08001fa8   Section        0  usbd_desc.o(i.IntToUnicode)
     IntToUnicode                             0x08001fa9   Thumb Code    62  usbd_desc.o(i.IntToUnicode)
@@ -1600,7 +1600,7 @@ Image Symbol Table
     HAL_UART_Init                            0x08001dbd   Thumb Code   118  stm32f1xx_hal_uart.o(i.HAL_UART_Init)
     HAL_UART_MspInit                         0x08001e35   Thumb Code   122  stm32f1xx_hal_msp.o(i.HAL_UART_MspInit)
     HAL_UART_Transmit                        0x08001ebd   Thumb Code   190  stm32f1xx_hal_uart.o(i.HAL_UART_Transmit)
-    HID_Keyboard_Send                        0x08001f7d   Thumb Code    36  keyboard.o(i.HID_Keyboard_Send)
+    Keyboard_Send                        0x08001f7d   Thumb Code    36  keyboard.o(i.Keyboard_Send)
     HardFault_Handler                        0x08001fa5   Thumb Code     4  stm32f1xx_it.o(i.HardFault_Handler)
     Key_GPIO_Config                          0x08001ff9   Thumb Code    94  key.o(i.Key_GPIO_Config)
     Key_Scan                                 0x08002065   Thumb Code    60  key.o(i.Key_Scan)
@@ -1802,7 +1802,7 @@ Memory Map of the image
     0x08001e34   0x08001e34   0x00000088   Code   RO          282    i.HAL_UART_MspInit  stm32f1xx_hal_msp.o
     0x08001ebc   0x08001ebc   0x000000be   Code   RO         2039    i.HAL_UART_Transmit  stm32f1xx_hal_uart.o
     0x08001f7a   0x08001f7a   0x00000002   PAD
-    0x08001f7c   0x08001f7c   0x00000028   Code   RO          316    i.HID_Keyboard_Send  keyboard.o
+    0x08001f7c   0x08001f7c   0x00000028   Code   RO          316    i.Keyboard_Send  keyboard.o
     0x08001fa4   0x08001fa4   0x00000004   Code   RO          195    i.HardFault_Handler  stm32f1xx_it.o
     0x08001fa8   0x08001fa8   0x0000003e   Code   RO         2443    i.IntToUnicode      usbd_desc.o
     0x08001fe6   0x08001fe6   0x00000012   Code   RO          369    i.Key_Delay         key.o
