@@ -61,14 +61,20 @@ typedef struct{
     uint8_t *cmdData;
 }SYS_Cmd;
 
-extern SYS_Data global_sysdata;
 
-void SYS_Clear_Data(SYS_Data *sysdata);
-bool SYS_Update_Status(SYS_Data *sysdata);
-bool SYS_Receive_Data(SYS_Data *sysdata, uint8_t *buffer, uint32_t size);
-void SYS_Process_Data(SYS_Data *sysdata);
+/* 运行状态 */
+#define STATUS_RUNING  (1)
+#define STATUS_SETTING (0)
+
+extern SYS_Data g_sysData;
+extern uint8_t g_runStatus;
+
+void SYS_Clear_Data(SYS_Data *sysData);
+bool SYS_Update_Status(SYS_Data *sysData);
+bool SYS_Receive_Data(SYS_Data *sysData, uint8_t *buffer, uint32_t size);
+void SYS_Process_Data(SYS_Data *sysData);
 uint32_t SYS_Run_Cmd(SYS_Cmd *cmd);
 
-bool SYS_Check_CRC32(SYS_Data *sysdata);
+bool SYS_Check_CRC32(SYS_Data *sysData);
 void SYS_Delay_ms(uint32_t ms);
 #endif

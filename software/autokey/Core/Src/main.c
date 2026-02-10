@@ -19,7 +19,7 @@
 /* Includes ------------------------------------------------------------------*/
 #include "main.h"
 #include "usb_device.h"
-#include "sysdata.h"
+#include "sysData.h"
 #include "key.h"
 
 /* Private includes ----------------------------------------------------------*/
@@ -104,15 +104,9 @@ int main(void)
   while (1)
   {
     /* USER CODE END WHILE */
-    if (runStatus)
-    {
-      SYS_Process_Data(&global_sysdata);
-    }
-    else
-    {
-      Keyboard_SendEmpty();
-    }
-    
+
+    SYS_Process_Data(&g_sysData);
+
     /* USER CODE BEGIN 3 */
   }
   /* USER CODE END 3 */

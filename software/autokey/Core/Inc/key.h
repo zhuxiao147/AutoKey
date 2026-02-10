@@ -15,6 +15,5 @@ void Key_GPIO_Config(void);
 uint8_t Key_Scan(GPIO_TypeDef* GPIOx,uint16_t GPIO_Pin);
 void EXTI_Config(void);
 
-extern uint8_t runStatus;
 
 #endif /* __LED_H */

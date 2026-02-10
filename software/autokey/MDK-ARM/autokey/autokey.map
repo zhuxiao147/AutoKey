@@ -36,9 +36,9 @@ Section Cross References
     main.o(i.main) refers to main.o(i.MX_USART1_UART_Init) for MX_USART1_UART_Init
     main.o(i.main) refers to key.o(i.Key_GPIO_Config) for Key_GPIO_Config
     main.o(i.main) refers to key.o(i.EXTI_Config) for EXTI_Config
-    main.o(i.main) refers to sysdata.o(i.SYS_Process_Data) for SYS_Process_Data
-    main.o(i.main) refers to key.o(.data) for runStatus
-    main.o(i.main) refers to sysdata.o(.bss) for global_sysdata
+    main.o(i.main) refers to sysData.o(i.SYS_Process_Data) for SYS_Process_Data
+    main.o(i.main) refers to key.o(.data) for g_runStatus
+    main.o(i.main) refers to sysData.o(.bss) for g_sysData
     stm32f1xx_it.o(i.EXTI0_IRQHandler) refers to stm32f1xx_hal_gpio.o(i.HAL_GPIO_EXTI_IRQHandler) for HAL_GPIO_EXTI_IRQHandler
     stm32f1xx_it.o(i.SysTick_Handler) refers to stm32f1xx_hal.o(i.HAL_IncTick) for HAL_IncTick
     stm32f1xx_it.o(i.USB_LP_CAN1_RX0_IRQHandler) refers to stm32f1xx_hal_pcd.o(i.HAL_PCD_IRQHandler) for HAL_PCD_IRQHandler
@@ -52,21 +52,21 @@ Section Cross References
     key.o(i.EXTI_Config) refers to stm32f1xx_hal_cortex.o(i.HAL_NVIC_EnableIRQ) for HAL_NVIC_EnableIRQ
     key.o(i.HAL_GPIO_EXTI_Callback) refers to key.o(i.Key_Scan) for Key_Scan
     key.o(i.HAL_GPIO_EXTI_Callback) refers to printf1.o(i.__0printf$1) for __2printf
-    key.o(i.HAL_GPIO_EXTI_Callback) refers to key.o(.data) for runStatus
+    key.o(i.HAL_GPIO_EXTI_Callback) refers to key.o(.data) for g_runStatus
     key.o(i.Key_GPIO_Config) refers to stm32f1xx_hal_gpio.o(i.HAL_GPIO_Init) for HAL_GPIO_Init
     key.o(i.Key_Scan) refers to stm32f1xx_hal_gpio.o(i.HAL_GPIO_ReadPin) for HAL_GPIO_ReadPin
     key.o(i.Key_Scan) refers to key.o(i.Key_Delay) for Key_Delay
-    sysdata.o(i.SYS_Check_CRC32) refers to sysdata.o(i.CRC32_Calc) for CRC32_Calc
-    sysdata.o(i.SYS_Clear_Data) refers to memseta.o(.text) for __aeabi_memclr4
-    sysdata.o(i.SYS_Delay_ms) refers to stm32f1xx_hal.o(i.HAL_Delay) for HAL_Delay
-    sysdata.o(i.SYS_Process_Data) refers to sysdata.o(i.SYS_Run_Cmd) for SYS_Run_Cmd
-    sysdata.o(i.SYS_Receive_Data) refers to sysdata.o(i.SYS_Clear_Data) for SYS_Clear_Data
-    sysdata.o(i.SYS_Receive_Data) refers to memcpya.o(.text) for __aeabi_memcpy
-    sysdata.o(i.SYS_Receive_Data) refers to sysdata.o(i.SYS_Update_Status) for SYS_Update_Status
-    sysdata.o(i.SYS_Run_Cmd) refers to keyboard.o(i.Keyboard_Send) for Keyboard_Send
-    sysdata.o(i.SYS_Run_Cmd) refers to sysdata.o(i.SYS_Delay_ms) for SYS_Delay_ms
-    sysdata.o(i.SYS_Run_Cmd) refers to printf1.o(i.__0printf$1) for __2printf
-    sysdata.o(i.SYS_Update_Status) refers to sysdata.o(i.SYS_Check_CRC32) for SYS_Check_CRC32
+    sysData.o(i.SYS_Check_CRC32) refers to sysData.o(i.CRC32_Calc) for CRC32_Calc
+    sysData.o(i.SYS_Clear_Data) refers to memseta.o(.text) for __aeabi_memclr4
+    sysData.o(i.SYS_Delay_ms) refers to stm32f1xx_hal.o(i.HAL_Delay) for HAL_Delay
+    sysData.o(i.SYS_Process_Data) refers to sysData.o(i.SYS_Run_Cmd) for SYS_Run_Cmd
+    sysData.o(i.SYS_Receive_Data) refers to sysData.o(i.SYS_Clear_Data) for SYS_Clear_Data
+    sysData.o(i.SYS_Receive_Data) refers to memcpya.o(.text) for __aeabi_memcpy
+    sysData.o(i.SYS_Receive_Data) refers to sysData.o(i.SYS_Update_Status) for SYS_Update_Status
+    sysData.o(i.SYS_Run_Cmd) refers to keyboard.o(i.Keyboard_Send) for Keyboard_Send
+    sysData.o(i.SYS_Run_Cmd) refers to sysData.o(i.SYS_Delay_ms) for SYS_Delay_ms
+    sysData.o(i.SYS_Run_Cmd) refers to printf1.o(i.__0printf$1) for __2printf
+    sysData.o(i.SYS_Update_Status) refers to sysData.o(i.SYS_Check_CRC32) for SYS_Check_CRC32
     stm32f1xx_hal_pcd.o(i.HAL_PCD_ActivateRemoteWakeup) refers to stm32f1xx_ll_usb.o(i.USB_ActivateRemoteWakeup) for USB_ActivateRemoteWakeup
     stm32f1xx_hal_pcd.o(i.HAL_PCD_DeActivateRemoteWakeup) refers to stm32f1xx_ll_usb.o(i.USB_DeActivateRemoteWakeup) for USB_DeActivateRemoteWakeup
     stm32f1xx_hal_pcd.o(i.HAL_PCD_DeInit) refers to stm32f1xx_ll_usb.o(i.USB_StopDevice) for USB_StopDevice
@@ -438,8 +438,8 @@ Section Cross References
     usbd_hid.o(i.USBD_HID_DataOut) refers to usbd_conf.o(i.USBD_LL_PrepareReceive) for USBD_LL_PrepareReceive
     usbd_hid.o(i.USBD_HID_DeInit) refers to usbd_conf.o(i.USBD_LL_CloseEP) for USBD_LL_CloseEP
     usbd_hid.o(i.USBD_HID_DeInit) refers to usbd_conf.o(i.USBD_static_free) for USBD_static_free
-    usbd_hid.o(i.USBD_HID_EP0_RxReady) refers to sysdata.o(i.SYS_Receive_Data) for SYS_Receive_Data
-    usbd_hid.o(i.USBD_HID_EP0_RxReady) refers to sysdata.o(.bss) for global_sysdata
+    usbd_hid.o(i.USBD_HID_EP0_RxReady) refers to sysData.o(i.SYS_Receive_Data) for SYS_Receive_Data
+    usbd_hid.o(i.USBD_HID_EP0_RxReady) refers to sysData.o(.bss) for g_sysData
     usbd_hid.o(i.USBD_HID_GetDeviceQualifierDesc) refers to usbd_hid.o(.data) for USBD_HID_DeviceQualifierDesc
     usbd_hid.o(i.USBD_HID_GetFSCfgDesc) refers to usbd_hid.o(.data) for USBD_HID_CfgFSDesc
     usbd_hid.o(i.USBD_HID_GetHSCfgDesc) refers to usbd_hid.o(.data) for USBD_HID_CfgHSDesc
@@ -747,9 +747,9 @@ Removing Unused input sections from the image.
     Removing key.o(.rev16_text), (4 bytes).
     Removing key.o(.revsh_text), (4 bytes).
     Removing key.o(.rrx_text), (6 bytes).
-    Removing sysdata.o(.rev16_text), (4 bytes).
-    Removing sysdata.o(.revsh_text), (4 bytes).
-    Removing sysdata.o(.rrx_text), (6 bytes).
+    Removing sysData.o(.rev16_text), (4 bytes).
+    Removing sysData.o(.revsh_text), (4 bytes).
+    Removing sysData.o(.rrx_text), (6 bytes).
     Removing stm32f1xx_hal_gpio_ex.o(.rev16_text), (4 bytes).
     Removing stm32f1xx_hal_gpio_ex.o(.revsh_text), (4 bytes).
     Removing stm32f1xx_hal_gpio_ex.o(.rrx_text), (6 bytes).
@@ -1144,7 +1144,7 @@ Image Symbol Table
     ..\Core\Src\main.c                       0x00000000   Number         0  main.o ABSOLUTE
     ..\Core\Src\stm32f1xx_hal_msp.c          0x00000000   Number         0  stm32f1xx_hal_msp.o ABSOLUTE
     ..\Core\Src\stm32f1xx_it.c               0x00000000   Number         0  stm32f1xx_it.o ABSOLUTE
-    ..\Core\Src\sysdata.c                    0x00000000   Number         0  sysdata.o ABSOLUTE
+    ..\Core\Src\sysData.c                    0x00000000   Number         0  sysData.o ABSOLUTE
     ..\Core\Src\system_stm32f1xx.c           0x00000000   Number         0  system_stm32f1xx.o ABSOLUTE
     ..\Drivers\STM32F1xx_HAL_Driver\Src\stm32f1xx_hal.c 0x00000000   Number         0  stm32f1xx_hal.o ABSOLUTE
     ..\Drivers\STM32F1xx_HAL_Driver\Src\stm32f1xx_hal_cortex.c 0x00000000   Number         0  stm32f1xx_hal_cortex.o ABSOLUTE
@@ -1170,7 +1170,7 @@ Image Symbol Table
     ..\\..\\..\\..\\AutoKey\\software\\autokey\\Drivers\\STM32F1xx_HAL_Driver\\Src\\stm32f1xx_hal_uart.c 0x00000000   Number         0  stm32f1xx_hal_uart.o ABSOLUTE
     ..\\Core\\Src\\key.c                     0x00000000   Number         0  key.o ABSOLUTE
     ..\\Core\\Src\\keyboard.c                0x00000000   Number         0  keyboard.o ABSOLUTE
-    ..\\Core\\Src\\sysdata.c                 0x00000000   Number         0  sysdata.o ABSOLUTE
+    ..\\Core\\Src\\sysData.c                 0x00000000   Number         0  sysData.o ABSOLUTE
     cdrcmple.s                               0x00000000   Number         0  cdrcmple.o ABSOLUTE
     dc.s                                     0x00000000   Number         0  dc.o ABSOLUTE
     handlers.s                               0x00000000   Number         0  handlers.o ABSOLUTE
@@ -1194,7 +1194,7 @@ Image Symbol Table
     .text                                    0x08000198   Section       36  init.o(.text)
     .text                                    0x080001bc   Section        0  __dczerorl2.o(.text)
     i.BusFault_Handler                       0x08000218   Section        0  stm32f1xx_it.o(i.BusFault_Handler)
-    i.CRC32_Calc                             0x0800021c   Section        0  sysdata.o(i.CRC32_Calc)
+    i.CRC32_Calc                             0x0800021c   Section        0  sysData.o(i.CRC32_Calc)
     i.DebugMon_Handler                       0x0800025c   Section        0  stm32f1xx_it.o(i.DebugMon_Handler)
     i.EXTI0_IRQHandler                       0x0800025e   Section        0  stm32f1xx_it.o(i.EXTI0_IRQHandler)
     i.EXTI_Config                            0x08000268   Section        0  key.o(i.EXTI_Config)
@@ -1270,13 +1270,13 @@ Image Symbol Table
     i.RCC_Delay                              0x08002674   Section        0  stm32f1xx_hal_rcc.o(i.RCC_Delay)
     RCC_Delay                                0x08002675   Thumb Code    36  stm32f1xx_hal_rcc.o(i.RCC_Delay)
     i.SVC_Handler                            0x0800269c   Section        0  stm32f1xx_it.o(i.SVC_Handler)
-    i.SYS_Check_CRC32                        0x0800269e   Section        0  sysdata.o(i.SYS_Check_CRC32)
-    i.SYS_Clear_Data                         0x080026c6   Section        0  sysdata.o(i.SYS_Clear_Data)
-    i.SYS_Delay_ms                           0x080026dc   Section        0  sysdata.o(i.SYS_Delay_ms)
-    i.SYS_Process_Data                       0x080026e8   Section        0  sysdata.o(i.SYS_Process_Data)
-    i.SYS_Receive_Data                       0x08002750   Section        0  sysdata.o(i.SYS_Receive_Data)
-    i.SYS_Run_Cmd                            0x08002834   Section        0  sysdata.o(i.SYS_Run_Cmd)
-    i.SYS_Update_Status                      0x080028ac   Section        0  sysdata.o(i.SYS_Update_Status)
+    i.SYS_Check_CRC32                        0x0800269e   Section        0  sysData.o(i.SYS_Check_CRC32)
+    i.SYS_Clear_Data                         0x080026c6   Section        0  sysData.o(i.SYS_Clear_Data)
+    i.SYS_Delay_ms                           0x080026dc   Section        0  sysData.o(i.SYS_Delay_ms)
+    i.SYS_Process_Data                       0x080026e8   Section        0  sysData.o(i.SYS_Process_Data)
+    i.SYS_Receive_Data                       0x08002750   Section        0  sysData.o(i.SYS_Receive_Data)
+    i.SYS_Run_Cmd                            0x08002834   Section        0  sysData.o(i.SYS_Run_Cmd)
+    i.SYS_Update_Status                      0x080028ac   Section        0  sysData.o(i.SYS_Update_Status)
     i.SysTick_Handler                        0x080028f8   Section        0  stm32f1xx_it.o(i.SysTick_Handler)
     i.SystemClock_Config                     0x08002900   Section        0  main.o(i.SystemClock_Config)
     i.SystemInit                             0x08002984   Section        0  system_stm32f1xx.o(i.SystemInit)
@@ -1422,7 +1422,7 @@ Image Symbol Table
     HID_CUSTOM_ReportDesc                    0x2000024c   Data          36  usbd_hid.o(.data)
     .data                                    0x20000270   Section        4  stdout.o(.data)
     .bss                                     0x20000274   Section       72  main.o(.bss)
-    .bss                                     0x200002bc   Section     2064  sysdata.o(.bss)
+    .bss                                     0x200002bc   Section     2064  sysData.o(.bss)
     .bss                                     0x20000acc   Section      708  usb_device.o(.bss)
     .bss                                     0x20000d90   Section      512  usbd_desc.o(.bss)
     .bss                                     0x20000f90   Section      888  usbd_conf.o(.bss)
@@ -1551,7 +1551,7 @@ Image Symbol Table
     __decompress                             0x080001bd   Thumb Code     0  __dczerorl2.o(.text)
     __decompress1                            0x080001bd   Thumb Code    92  __dczerorl2.o(.text)
     BusFault_Handler                         0x08000219   Thumb Code     4  stm32f1xx_it.o(i.BusFault_Handler)
-    CRC32_Calc                               0x0800021d   Thumb Code    60  sysdata.o(i.CRC32_Calc)
+    CRC32_Calc                               0x0800021d   Thumb Code    60  sysData.o(i.CRC32_Calc)
     DebugMon_Handler                         0x0800025d   Thumb Code     2  stm32f1xx_it.o(i.DebugMon_Handler)
     EXTI0_IRQHandler                         0x0800025f   Thumb Code    10  stm32f1xx_it.o(i.EXTI0_IRQHandler)
     EXTI_Config                              0x08000269   Thumb Code    20  key.o(i.EXTI_Config)
@@ -1609,13 +1609,13 @@ Image Symbol Table
     NMI_Handler                              0x0800218d   Thumb Code     4  stm32f1xx_it.o(i.NMI_Handler)
     PendSV_Handler                           0x08002671   Thumb Code     2  stm32f1xx_it.o(i.PendSV_Handler)
     SVC_Handler                              0x0800269d   Thumb Code     2  stm32f1xx_it.o(i.SVC_Handler)
-    SYS_Check_CRC32                          0x0800269f   Thumb Code    40  sysdata.o(i.SYS_Check_CRC32)
-    SYS_Clear_Data                           0x080026c7   Thumb Code    22  sysdata.o(i.SYS_Clear_Data)
-    SYS_Delay_ms                             0x080026dd   Thumb Code    12  sysdata.o(i.SYS_Delay_ms)
-    SYS_Process_Data                         0x080026e9   Thumb Code   104  sysdata.o(i.SYS_Process_Data)
-    SYS_Receive_Data                         0x08002751   Thumb Code   228  sysdata.o(i.SYS_Receive_Data)
-    SYS_Run_Cmd                              0x08002835   Thumb Code   112  sysdata.o(i.SYS_Run_Cmd)
-    SYS_Update_Status                        0x080028ad   Thumb Code    76  sysdata.o(i.SYS_Update_Status)
+    SYS_Check_CRC32                          0x0800269f   Thumb Code    40  sysData.o(i.SYS_Check_CRC32)
+    SYS_Clear_Data                           0x080026c7   Thumb Code    22  sysData.o(i.SYS_Clear_Data)
+    SYS_Delay_ms                             0x080026dd   Thumb Code    12  sysData.o(i.SYS_Delay_ms)
+    SYS_Process_Data                         0x080026e9   Thumb Code   104  sysData.o(i.SYS_Process_Data)
+    SYS_Receive_Data                         0x08002751   Thumb Code   228  sysData.o(i.SYS_Receive_Data)
+    SYS_Run_Cmd                              0x08002835   Thumb Code   112  sysData.o(i.SYS_Run_Cmd)
+    SYS_Update_Status                        0x080028ad   Thumb Code    76  sysData.o(i.SYS_Update_Status)
     SysTick_Handler                          0x080028f9   Thumb Code     8  stm32f1xx_it.o(i.SysTick_Handler)
     SystemClock_Config                       0x08002901   Thumb Code   132  main.o(i.SystemClock_Config)
     SystemInit                               0x08002985   Thumb Code     2  system_stm32f1xx.o(i.SystemInit)
@@ -1696,7 +1696,7 @@ Image Symbol Table
     APBPrescTable                            0x08005492   Data           8  system_stm32f1xx.o(.constdata)
     Region$$Table$$Base                      0x0800549c   Number         0  anon$$obj.o(Region$$Table)
     Region$$Table$$Limit                     0x080054bc   Number         0  anon$$obj.o(Region$$Table)
-    runStatus                                0x20000000   Data           1  key.o(.data)
+    g_runStatus                                0x20000000   Data           1  key.o(.data)
     uwTickPrio                               0x20000004   Data           4  stm32f1xx_hal.o(.data)
     uwTickFreq                               0x20000008   Data           1  stm32f1xx_hal.o(.data)
     uwTick                                   0x2000000c   Data           4  stm32f1xx_hal.o(.data)
@@ -1709,7 +1709,7 @@ Image Symbol Table
     USBD_HID                                 0x2000006c   Data          56  usbd_hid.o(.data)
     __stdout                                 0x20000270   Data           4  stdout.o(.data)
     huart1                                   0x20000274   Data          72  main.o(.bss)
-    global_sysdata                           0x200002bc   Data        2064  sysdata.o(.bss)
+    g_sysData                           0x200002bc   Data        2064  sysData.o(.bss)
     hUsbDeviceFS                             0x20000acc   Data         708  usb_device.o(.bss)
     USBD_StrDesc                             0x20000d90   Data         512  usbd_desc.o(.bss)
     hpcd_USB_FS                              0x20001030   Data         728  usbd_conf.o(.bss)
@@ -1746,7 +1746,7 @@ Memory Map of the image
     0x08000198   0x08000198   0x00000024   Code   RO         3417    .text               mc_w.l(init.o)
     0x080001bc   0x080001bc   0x0000005c   Code   RO         3433    .text               mc_w.l(__dczerorl2.o)
     0x08000218   0x08000218   0x00000004   Code   RO          192    i.BusFault_Handler  stm32f1xx_it.o
-    0x0800021c   0x0800021c   0x00000040   Code   RO          420    i.CRC32_Calc        sysdata.o
+    0x0800021c   0x0800021c   0x00000040   Code   RO          420    i.CRC32_Calc        sysData.o
     0x0800025c   0x0800025c   0x00000002   Code   RO          193    i.DebugMon_Handler  stm32f1xx_it.o
     0x0800025e   0x0800025e   0x0000000a   Code   RO          194    i.EXTI0_IRQHandler  stm32f1xx_it.o
     0x08000268   0x08000268   0x00000014   Code   RO          367    i.EXTI_Config       key.o
@@ -1818,13 +1818,13 @@ Memory Map of the image
     0x08002672   0x08002672   0x00000002   PAD
     0x08002674   0x08002674   0x00000028   Code   RO         1181    i.RCC_Delay         stm32f1xx_hal_rcc.o
     0x0800269c   0x0800269c   0x00000002   Code   RO          199    i.SVC_Handler       stm32f1xx_it.o
-    0x0800269e   0x0800269e   0x00000028   Code   RO          421    i.SYS_Check_CRC32   sysdata.o
-    0x080026c6   0x080026c6   0x00000016   Code   RO          422    i.SYS_Clear_Data    sysdata.o
-    0x080026dc   0x080026dc   0x0000000c   Code   RO          423    i.SYS_Delay_ms      sysdata.o
-    0x080026e8   0x080026e8   0x00000068   Code   RO          424    i.SYS_Process_Data  sysdata.o
-    0x08002750   0x08002750   0x000000e4   Code   RO          425    i.SYS_Receive_Data  sysdata.o
-    0x08002834   0x08002834   0x00000078   Code   RO          426    i.SYS_Run_Cmd       sysdata.o
-    0x080028ac   0x080028ac   0x0000004c   Code   RO          427    i.SYS_Update_Status  sysdata.o
+    0x0800269e   0x0800269e   0x00000028   Code   RO          421    i.SYS_Check_CRC32   sysData.o
+    0x080026c6   0x080026c6   0x00000016   Code   RO          422    i.SYS_Clear_Data    sysData.o
+    0x080026dc   0x080026dc   0x0000000c   Code   RO          423    i.SYS_Delay_ms      sysData.o
+    0x080026e8   0x080026e8   0x00000068   Code   RO          424    i.SYS_Process_Data  sysData.o
+    0x08002750   0x08002750   0x000000e4   Code   RO          425    i.SYS_Receive_Data  sysData.o
+    0x08002834   0x08002834   0x00000078   Code   RO          426    i.SYS_Run_Cmd       sysData.o
+    0x080028ac   0x080028ac   0x0000004c   Code   RO          427    i.SYS_Update_Status  sysData.o
     0x080028f8   0x080028f8   0x00000008   Code   RO          200    i.SysTick_Handler   stm32f1xx_it.o
     0x08002900   0x08002900   0x00000084   Code   RO           16    i.SystemClock_Config  main.o
     0x08002984   0x08002984   0x00000002   Code   RO         2375    i.SystemInit        system_stm32f1xx.o
@@ -1951,7 +1951,7 @@ Memory Map of the image
     0x2000006c   COMPRESSED   0x00000204   Data   RW         3039    .data               usbd_hid.o
     0x20000270   COMPRESSED   0x00000004   Data   RW         3401    .data               mc_w.l(stdout.o)
     0x20000274        -       0x00000048   Zero   RW           19    .bss                main.o
-    0x200002bc        -       0x00000810   Zero   RW          428    .bss                sysdata.o
+    0x200002bc        -       0x00000810   Zero   RW          428    .bss                sysData.o
     0x20000acc        -       0x000002c4   Zero   RW         2412    .bss                usb_device.o
     0x20000d90        -       0x00000200   Zero   RW         2451    .bss                usbd_desc.o
     0x20000f90        -       0x00000378   Zero   RW         2551    .bss                usbd_conf.o
@@ -1980,7 +1980,7 @@ Image component sizes
        806          4          0          0          0       4416   stm32f1xx_hal_uart.o
         60          6          0          0          0       4398   stm32f1xx_it.o
       4990          0          0          0          0      17955   stm32f1xx_ll_usb.o
-       666         12          0          0       2064       6144   sysdata.o
+       666         12          0          0       2064       6144   sysData.o
          2          0         24          4          0        987   system_stm32f1xx.o
         60         14          0          0        708        664   usb_device.o
        796         30          0          0        888      12801   usbd_conf.o

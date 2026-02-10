@@ -49,7 +49,7 @@ EndBSPDependencies */
 #include "usbd_hid.h"
 #include "usbd_ctlreq.h"
 
-#include "sysdata.h"
+#include "sysData.h"
 
 
 /** @addtogroup STM32_USB_DEVICE_LIBRARY
@@ -976,7 +976,7 @@ static uint8_t  USBD_HID_EP0_RxReady(USBD_HandleTypeDef  *pdev)
   {
     hhid->IsReportAvailable = 0U;
 
-    if(SYS_Receive_Data(&global_sysdata, hhid->ReportOutbuf, hhid->ReportSize)){
+    if(SYS_Receive_Data(&g_sysData, hhid->ReportOutbuf, hhid->ReportSize)){
       //get report ok
     }else{
       //get report retry

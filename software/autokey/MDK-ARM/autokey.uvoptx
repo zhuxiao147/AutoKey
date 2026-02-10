@@ -218,14 +218,14 @@
         <Ww>
           <count>0</count>
           <WinNumber>1</WinNumber>
-          <ItemText>global_sysdata</ItemText>
+          <ItemText>g_sysData</ItemText>
         </Ww>
       </WatchWindow1>
       <WatchWindow2>
         <Ww>
           <count>0</count>
           <WinNumber>2</WinNumber>
-          <ItemText>global_sysdata</ItemText>
+          <ItemText>g_sysData</ItemText>
         </Ww>
       </WatchWindow2>
       <MemoryWindow1>
@@ -389,8 +389,8 @@
       <tvExp>0</tvExp>
       <tvExpOptDlg>0</tvExpOptDlg>
       <bDave2>0</bDave2>
-      <PathWithFileName>..\Core\Src\sysdata.c</PathWithFileName>
-      <FilenameWithoutPath>sysdata.c</FilenameWithoutPath>
+      <PathWithFileName>..\Core\Src\sysData.c</PathWithFileName>
+      <FilenameWithoutPath>sysData.c</FilenameWithoutPath>
       <RteFlg>0</RteFlg>
       <bShared>0</bShared>
     </File>

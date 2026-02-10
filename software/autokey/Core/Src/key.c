@@ -1,10 +1,11 @@
 
 #include "key.h"
 
+#include "sysData.h"
+
 #include <stdio.h>
 
 
-uint8_t runStatus = 0;
 static void Key_Delay(__IO uint32_t nCount) {
     for (; nCount != 0; nCount--)
         ;
@@ -48,8 +49,8 @@ void HAL_GPIO_EXTI_Callback(uint16_t GPIO_Pin) {
     if (GPIO_Pin == GPIO_PIN_0) {
         uint8_t keyStatus = Key_Scan(GPIOA, GPIO_PIN_0);
         if (keyStatus == KEY_ON) {
-            runStatus = runStatus ? 0x00 : 0x01;
-            printf("runStatus: %d\n", runStatus);
+            g_runStatus = g_runStatus == STATUS_SETTING ? STATUS_RUNING : STATUS_SETTING;
+            printf("g_runStatus: %d\n", g_runStatus);
         }
     }
 }

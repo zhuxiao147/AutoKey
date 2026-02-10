@@ -420,9 +420,9 @@
               <FilePath>..\Core\Src\key.c</FilePath>
             </File>
             <File>
-              <FileName>sysdata.c</FileName>
+              <FileName>sysData.c</FileName>
               <FileType>1</FileType>
-              <FilePath>..\Core\Src\sysdata.c</FilePath>
+              <FilePath>..\Core\Src\sysData.c</FilePath>
             </File>
           </Files>
         </Group>

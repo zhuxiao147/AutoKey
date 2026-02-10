@@ -1,48 +1,53 @@
-#include "sysdata.h"
+#include "sysData.h"
 
 #include "keyboard.h"
 
 #include <stdio.h>
 #include <string.h>
 
-SYS_Data global_sysdata = {0};
+SYS_Data g_sysData = {0};
+uint8_t g_runStatus = STATUS_SETTING;
 
-bool SYS_Check_CRC32(SYS_Data *sysdata);
+bool SYS_Check_CRC32(SYS_Data *sysData);
 uint32_t CRC32_Calc(const uint8_t *data, uint32_t length);
 
-void SYS_Clear_Data(SYS_Data *sysdata) {
-    if (sysdata == NULL) {
+void SYS_Clear_Data(SYS_Data *sysData) {
+    if (sysData == NULL) {
         return;
     }
-    memset(sysdata, 0, sizeof(SYS_Data));
+    memset(sysData, 0, sizeof(SYS_Data));
 }
 
-bool SYS_Update_Status(SYS_Data *sysdata) {
-    if (sysdata->dataOffset == sysdata->dataSize) {
+bool SYS_Update_Status(SYS_Data *sysData) {
+    if (sysData->dataOffset == sysData->dataSize) {
         // 校验数据
-        if (SYS_Check_CRC32(sysdata)) {
+        if (SYS_Check_CRC32(sysData)) {
             // 设置接收完成标志
-            sysdata->status = SYS_RECEIVE_FINISHED;
+            sysData->status = SYS_RECEIVE_FINISHED;
             return true;
         } else {
             // 校验失败
-            sysdata->status = SYS_RECEIVE_ERROR;
+            sysData->status = SYS_RECEIVE_ERROR;
             return false;
         }
-    } else if (sysdata->dataOffset > sysdata->dataSize) {
+    } else if (sysData->dataOffset > sysData->dataSize) {
         // 接收数据长度超出总数据长度
         return false;
     } else {
         // 设置继续接收标志
-        sysdata->status = SYS_RECEIVE_CONTINUE;
+        sysData->status = SYS_RECEIVE_CONTINUE;
     }
     return true;
 }
 
-bool SYS_Receive_Data(SYS_Data *sysdata, uint8_t *buffer, uint32_t size) {
-    if (sysdata == NULL || buffer == NULL || size != PACKET_SIZE) {
+bool SYS_Receive_Data(SYS_Data *sysData, uint8_t *buffer, uint32_t size) {
+    if (sysData == NULL || buffer == NULL || size != PACKET_SIZE) 
         return false;
-    }
+    
+    // 运行状态下不接收数据
+    if(g_runStatus == STATUS_RUNING)
+        return false;
+
     // uint8_t report_id = buffer[0];
     uint8_t index = buffer[1];
     uint8_t length = buffer[2];
@@ -60,40 +65,40 @@ bool SYS_Receive_Data(SYS_Data *sysdata, uint8_t *buffer, uint32_t size) {
         }
 
         // 清除数据
-        SYS_Clear_Data(sysdata);
+        SYS_Clear_Data(sysData);
 
         // 第一个数据包，包含数据总长度
-        sysdata->dataSize = *(uint32_t *)(buffer + PACKET_HEAD_SIZE);
-        sysdata->crc32 = *(uint32_t *)(buffer + PACKET_HEAD_SIZE + DATASIZE_LENGTH);
-        if (sysdata->dataSize > MAX_SYS_DATA_SIZE) {
+        sysData->dataSize = *(uint32_t *)(buffer + PACKET_HEAD_SIZE);
+        sysData->crc32 = *(uint32_t *)(buffer + PACKET_HEAD_SIZE + DATASIZE_LENGTH);
+        if (sysData->dataSize > MAX_SYS_DATA_SIZE) {
             // 数据长度超出缓存最大长度
             return false;
         }
 
         // 第一个数据包
-        memcpy(sysdata->data, buffer + PACKET_HEAD_SIZE + DATASIZE_LENGTH + CRC32_LENGTH,
+        memcpy(sysData->data, buffer + PACKET_HEAD_SIZE + DATASIZE_LENGTH + CRC32_LENGTH,
                length - DATASIZE_LENGTH - CRC32_LENGTH);
-        sysdata->tailIndex = index;
-        sysdata->dataOffset = length - DATASIZE_LENGTH - CRC32_LENGTH;
+        sysData->tailIndex = index;
+        sysData->dataOffset = length - DATASIZE_LENGTH - CRC32_LENGTH;
 
         // 更新状态
-        if (!SYS_Update_Status(sysdata)) {
+        if (!SYS_Update_Status(sysData)) {
             return false;
         }
         return true;
     } else {
         /* 后续数据包处理 */
-        if (length + sysdata->dataOffset > MAX_SYS_DATA_SIZE) {
+        if (length + sysData->dataOffset > MAX_SYS_DATA_SIZE) {
             return false;
         }
 
-        if (index == sysdata->tailIndex + 1 && sysdata->status == SYS_RECEIVE_CONTINUE) {
-            memcpy(sysdata->data + sysdata->dataOffset, buffer + PACKET_HEAD_SIZE, length);
-            sysdata->tailIndex = index;
-            sysdata->dataOffset += length;
+        if (index == sysData->tailIndex + 1 && sysData->status == SYS_RECEIVE_CONTINUE) {
+            memcpy(sysData->data + sysData->dataOffset, buffer + PACKET_HEAD_SIZE, length);
+            sysData->tailIndex = index;
+            sysData->dataOffset += length;
 
             // 更新状态
-            if (!SYS_Update_Status(sysdata)) {
+            if (!SYS_Update_Status(sysData)) {
                 return false;
             }
             return true;
@@ -104,39 +109,45 @@ bool SYS_Receive_Data(SYS_Data *sysdata, uint8_t *buffer, uint32_t size) {
     }
 }
 
-void SYS_Process_Data(SYS_Data *sysdata) {
-    if (sysdata == NULL) {
+void SYS_Process_Data(SYS_Data *sysData) {
+    if (sysData == NULL) {
         return;
     }
 
-    if (sysdata->status != SYS_RECEIVE_FINISHED) {
+    if (sysData->status != SYS_RECEIVE_FINISHED) {
         return;
     }
 
+    if(g_runStatus != STATUS_RUNING){
+        Keyboard_SendEmpty();
+        SYS_Delay_ms(50);
+        return;
+    }
+        
     // 解析命令
     SYS_Cmd cmd;
     memset(&cmd, 0, sizeof(SYS_Cmd));
-    cmd.cmdType = (SYS_CmdType)sysdata->data[sysdata->iterator];
-    sysdata->iterator++;
-    cmd.cmdData = sysdata->data + sysdata->iterator;
+    cmd.cmdType = (SYS_CmdType)sysData->data[sysData->iterator];
+    sysData->iterator++;
+    cmd.cmdData = sysData->data + sysData->iterator;
 
     // 执行命令
-    sysdata->iterator += SYS_Run_Cmd(&cmd);
+    sysData->iterator += SYS_Run_Cmd(&cmd);
 
-    if (sysdata->iterator >= sysdata->dataSize) {
-        sysdata->iterator = 0;
+    if (sysData->iterator >= sysData->dataSize) {
+        sysData->iterator = 0;
     }
 }
 
-bool SYS_Check_CRC32(SYS_Data *sysdata) {
-    if (sysdata == NULL) {
+bool SYS_Check_CRC32(SYS_Data *sysData) {
+    if (sysData == NULL) {
         return false;
     }
     uint32_t crc32 = 0;
     // 计算数据部分的CRC32
-    crc32 = CRC32_Calc(sysdata->data, sysdata->dataSize);
+    crc32 = CRC32_Calc(sysData->data, sysData->dataSize);
 
-    return (crc32 == sysdata->crc32);
+    return (crc32 == sysData->crc32);
 }
 
 uint32_t CRC32_Calc(const uint8_t *data, uint32_t length) {

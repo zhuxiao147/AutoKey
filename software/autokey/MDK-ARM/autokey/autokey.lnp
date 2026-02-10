@@ -5,7 +5,7 @@
 "autokey\stm32f1xx_hal_msp.o"
 "autokey\keyboard.o"
 "autokey\key.o"
-"autokey\sysdata.o"
+"autokey\sysData.o"
 "autokey\stm32f1xx_hal_gpio_ex.o"
 "autokey\stm32f1xx_hal_pcd.o"
 "autokey\stm32f1xx_hal_pcd_ex.o"
