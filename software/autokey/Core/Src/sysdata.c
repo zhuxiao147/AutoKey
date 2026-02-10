@@ -2,14 +2,38 @@
 
 #include "keyboard.h"
 
+#include "stm32f1xx_hal.h"
 #include <stdio.h>
 #include <string.h>
 
+#include "ee.h" 
+
 SYS_Data g_sysData = {0};
+
+SYS_Data ee_sysData = {0};
+
 uint8_t g_runStatus = STATUS_SETTING;
 
 bool SYS_Check_CRC32(SYS_Data *sysData);
 uint32_t CRC32_Calc(const uint8_t *data, uint32_t length);
+
+void SYS_Init(void) {
+    // 初始化EE
+    SYS_Clear_Data(&g_sysData);
+
+    ee_init(&ee_sysData, sizeof(SYS_Data));
+    ee_read();
+
+    memcpy(&g_sysData, &ee_sysData, sizeof(SYS_Data));
+}
+
+void SYS_Save_Data(SYS_Data *sysData) {
+    if (sysData == NULL) {
+        return;
+    }
+    memcpy(&ee_sysData, sysData, sizeof(SYS_Data));
+    ee_write();
+}
 
 void SYS_Clear_Data(SYS_Data *sysData) {
     if (sysData == NULL) {
@@ -24,6 +48,7 @@ bool SYS_Update_Status(SYS_Data *sysData) {
         if (SYS_Check_CRC32(sysData)) {
             // 设置接收完成标志
             sysData->status = SYS_RECEIVE_FINISHED;
+            SYS_Save_Data(sysData);
             return true;
         } else {
             // 校验失败
@@ -119,8 +144,8 @@ void SYS_Process_Data(SYS_Data *sysData) {
     }
 
     if(g_runStatus != STATUS_RUNING){
-        Keyboard_SendEmpty();
-        SYS_Delay_ms(50);
+        //Keyboard_SendEmpty();
+        //SYS_Delay_ms(50);
         return;
     }
         

@@ -5,7 +5,8 @@
 "autokey\stm32f1xx_hal_msp.o"
 "autokey\keyboard.o"
 "autokey\key.o"
-"autokey\sysData.o"
+"autokey\sysdata.o"
+"autokey\ee.o"
 "autokey\stm32f1xx_hal_gpio_ex.o"
 "autokey\stm32f1xx_hal_pcd.o"
 "autokey\stm32f1xx_hal_pcd_ex.o"
@@ -29,7 +30,7 @@
 "autokey\usbd_ctlreq.o"
 "autokey\usbd_ioreq.o"
 "autokey\usbd_hid.o"
---library_type=microlib --strict --scatter "autokey\autokey.sct"
+--library_type=microlib --strict --scatter ".\autokey\autokey.sct"
 --summary_stderr --info summarysizes --map --load_addr_map_info --xref --callgraph --symbols
 --info sizes --info totals --info unused --info veneers
 --list "autokey.map" -o autokey\autokey.axf

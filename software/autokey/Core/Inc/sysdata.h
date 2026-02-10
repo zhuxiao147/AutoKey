@@ -3,7 +3,9 @@
 #include <stdbool.h>
 #include <stdint.h>
 
-#define MAX_SYS_DATA_SIZE (1024*2)
+#define __attribute_flash __attribute__((section("FLASH_STORAGE"), used, aligned(4)))
+
+#define MAX_SYS_DATA_SIZE (800)
 
 /*  
 总数据格式：
@@ -69,6 +71,7 @@ typedef struct{
 extern SYS_Data g_sysData;
 extern uint8_t g_runStatus;
 
+void SYS_Init(void);
 void SYS_Clear_Data(SYS_Data *sysData);
 bool SYS_Update_Status(SYS_Data *sysData);
 bool SYS_Receive_Data(SYS_Data *sysData, uint8_t *buffer, uint32_t size);

@@ -97,6 +97,8 @@ int main(void)
   /* USER CODE BEGIN 2 */
   Key_GPIO_Config();
   EXTI_Config();
+
+  SYS_Init();
   /* USER CODE END 2 */
 
   /* Infinite loop */
