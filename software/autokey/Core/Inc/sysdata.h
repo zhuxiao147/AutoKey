@@ -5,7 +5,7 @@
 
 #define __attribute_flash __attribute__((section("FLASH_STORAGE"), used, aligned(4)))
 
-#define MAX_SYS_DATA_SIZE (800)
+#define MAX_SYS_DATA_SIZE (1024*5)
 
 /*  
 总数据格式：
@@ -40,7 +40,7 @@ typedef struct
     uint32_t  crc32;  //crc32校验值
 
     uint8_t tailIndex;  //尾部索引
-    uint8_t dataOffset; //接收数据偏移量
+    uint32_t dataOffset; //接收数据偏移量
     SYS_Status status;  //接收状态
 
     uint32_t iterator; // 解析数据迭代器
@@ -60,6 +60,7 @@ typedef enum{
 
 typedef struct{
     SYS_CmdType cmdType;
+    uint16_t repeat;  // 重复次数
     uint8_t *cmdData;
 }SYS_Cmd;
 
@@ -72,6 +73,7 @@ extern SYS_Data g_sysData;
 extern uint8_t g_runStatus;
 
 void SYS_Init(void);
+void SYS_Save_Data(void);
 void SYS_Clear_Data(SYS_Data *sysData);
 bool SYS_Update_Status(SYS_Data *sysData);
 bool SYS_Receive_Data(SYS_Data *sysData, uint8_t *buffer, uint32_t size);

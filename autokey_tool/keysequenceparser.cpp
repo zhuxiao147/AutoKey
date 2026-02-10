@@ -120,6 +120,7 @@ QVector<KeyAction> KeySequenceParser::parseActions(const QString &sequence) {
         if (trimmed.contains("ms") && trimmed.endsWith("ms")) {
             KeyAction action;
             action.type = KeyAction::Delay;
+            action.repeat = 1;
             action.delay = trimmed.left(trimmed.length() - 2).toInt();
             actions.append(action);
             continue;
@@ -151,12 +152,10 @@ QVector<KeyAction> KeySequenceParser::parseActions(const QString &sequence) {
         }
 
         // 添加按键按下动作
-        for (int i = 0; i < repeatCount; ++i) {
-            KeyAction pressAction;
-            pressAction.type = KeyAction::KeyPress;
-            pressAction.keys = action.keys;
-            actions.append(pressAction);
-        }
+        action.type = KeyAction::KeyPress;
+        action.repeat = repeatCount;
+
+        actions.append(action);
     }
 
     return actions;
@@ -192,6 +191,7 @@ QByteArray KeySequenceParser::actionToBytes(const KeyAction &action) {
 
         // 写入8字节HID报告
         stream << (quint8)CMD_KEYBOARD;
+        stream << (quint16)action.repeat;
         stream << report.modifier;
         stream << report.reserved;
         for (int i = 0; i < 6; ++i) {
@@ -202,6 +202,7 @@ QByteArray KeySequenceParser::actionToBytes(const KeyAction &action) {
     case KeyAction::Delay:
         // 延时数据占用4字节
         stream << (quint8)CMD_DELAY;
+        stream << (quint16)action.repeat;
         stream << static_cast<quint32>(action.delay);
         break;
     }

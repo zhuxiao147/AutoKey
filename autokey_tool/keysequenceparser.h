@@ -27,8 +27,10 @@ struct KeyAction {
         Delay
     };
     Type type;
+    uint16_t repeat;  // 重复次数
+    
     QVector<QString> keys;  // 按键列表（支持组合键）
-    int delay;  // 延时（毫秒）
+    uint32_t delay;  // 延时（毫秒）
 };
 
 class KeySequenceParser

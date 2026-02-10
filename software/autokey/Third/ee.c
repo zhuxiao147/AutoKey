@@ -183,7 +183,7 @@ bool ee_init(void *data, uint32_t size)
     ee_handle.address = EE_SELECTED_ADDRESS;
 #endif
     /* checking size of eeprom area*/
-    if (size > ee_handle.page_sector_size)
+    if (size > ee_handle.page_sector_size * ee_handle.page_sector_number)
     {
       ee_handle.size = 0;
       ee_handle.data = NULL;
@@ -229,7 +229,7 @@ bool ee_format(void)
 #if EE_ERASE == EE_ERASE_PAGE_ADDRESS
     flash_erase.TypeErase = FLASH_TYPEERASE_PAGES;
     flash_erase.PageAddress = ee_handle.address;
-    flash_erase.NbPages = 1;
+    flash_erase.NbPages = ee_handle.page_sector_number;
 #elif EE_ERASE == EE_ERASE_PAGE_NUMBER
     flash_erase.TypeErase = FLASH_TYPEERASE_PAGES;
     flash_erase.Page = ee_handle.page_sector_number;
