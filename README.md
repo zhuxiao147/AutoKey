@@ -3,9 +3,9 @@
 这是一个基于Qt和C++开发的自动按键设置工具，用于与HID键盘模拟设备进行交互。
 
 # 目录说明
-autokey_tool目录为上位机软件
-hardware目录为硬件开发目录
-software目录为使用stm32硬件实现的HID键盘模拟设备
+- autokey_tool目录为上位机软件
+- hardware目录为硬件开发目录
+- software目录为使用stm32硬件实现的HID键盘模拟设备
 
 ## 功能特性
 
