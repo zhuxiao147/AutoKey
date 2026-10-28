@@ -68,9 +68,8 @@ make  # 或 nmake（Windows）
 - 按键序列语法必须正确，否则无法发送
 - 程序目前仅支持Windows平台的HID设备
 
-- #DEMO
-
-https://github.com/user-attachments/assets/71d44151-b54c-440d-b502-1aa9202d03eb
+## DEMO
+- https://github.com/user-attachments/assets/71d44151-b54c-440d-b502-1aa9202d03eb
 
 
 
